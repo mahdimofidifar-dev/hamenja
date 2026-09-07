@@ -14,10 +14,10 @@ export default defineConfig({
   },
   server: {
     host: true,
-    allowedHosts: ["hamenja.ir", "www.hamenja.ir", "localhost"],
+    allowedHosts: true,
   },
   preview: {
     host: true,
-    allowedHosts: ["hamenja.ir", "www.hamenja.ir"],
+    allowedHosts: true,
   },
 });
