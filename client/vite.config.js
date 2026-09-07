@@ -14,9 +14,10 @@ export default defineConfig({
   },
   server: {
     host: true,
-    port: 5173,
-    watch: {
-      usePolling: true,
-    },
+    allowedHosts: ["hamenja.ir", "www.hamenja.ir", "localhost"],
+  },
+  preview: {
+    host: true,
+    allowedHosts: ["hamenja.ir", "www.hamenja.ir"],
   },
 });
