@@ -1,0 +1,30 @@
+۲. کلاس‌های خروجی و نحوه استفاده در کد React
+با کپی کردن کد بالا، کلاس‌های استاندارد زیر به‌طور خودکار در HTML و React قابل استفاده خواهند بود:
+
+دکمه اصلی و برند:
+
+bg-brand-500 / hover:bg-brand-600 / text-white
+
+سانس‌های آزاد (کارت‌های سبز):
+
+bg-slot-free-bg / border-slot-free / text-slot-free
+
+سانس‌های پرشده (کارت‌های قرمز و غیرفعال):
+
+bg-slot-booked-bg / border-slot-booked / text-slot-booked / opacity-50
+
+سانس انتخاب‌شده:
+
+bg-brand-500 / text-white / ring-2 ring-brand-200
+
+متن‌ها و پس‌زمینه اصلی:
+
+bg-bg-light (برای <body>)
+
+bg-surface-light (برای کارت‌ها و بخش‌های سفید)
+
+text-text-main (برای تیترها)
+
+text-text-muted (برای زیرعنوان‌ها و توضیحات)
+
+border-border-subtle (برای کادربندی‌ها)
