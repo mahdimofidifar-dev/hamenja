@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   client:
     build:
@@ -24,8 +26,8 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - PORT=${MONGO_PORT}
-      - MONGO_URL=mongodb://${MONGO_USER}:${MONGO_PASSWORD}@database:27017/${MONGO_DB}?authSource=admin
+      - PORT=5000
+      - MONGO_URL=mongodb://database:27017/db
     volumes:
       - ./server:/app
       - /app/node_modules
@@ -38,10 +40,7 @@ services:
     image: mongo:latest
     container_name: database
     restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
-    ports:
+    ports: 
       - "27017:27017"
     volumes:
       - mongo_data:/data/db

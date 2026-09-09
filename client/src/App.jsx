@@ -11,6 +11,7 @@ import Auth from "./pages/Login";
 import UserDashboard from "./pages/UserDashboard";
 import AddVendor from "./pages/AddVendor";
 
+
 const RootLayout = () => {
   return (
     <>
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
       { path: "infoPage", element: <VenderDetail /> },
       { path: "auth", element: <Auth /> },
       { path: "profile", element: <UserDashboard /> },
-      { path: "addvendor", element: <AddVendor/> },
+      { path: "addvendor", element: <AddVendor /> },
     ],
   },
 ]);
