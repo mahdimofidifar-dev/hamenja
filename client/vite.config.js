@@ -15,11 +15,9 @@ export default defineConfig({
   server: {
     host: true,
     allowedHosts: true,
-    // allowedHost: ["hamenja.ir", "www.hamenja.ir", "localhost"],
   },
   preview: {
     host: true,
     allowedHosts: true,
-    // allowedHost: ["hamenja.ir", "www.hamenja.ir"],
   },
 });
