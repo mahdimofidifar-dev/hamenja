@@ -4,7 +4,7 @@ import CategoryBox from "@/components/vendor/CategoryBox";
 import SearchBox from "@/components/forms/SearchBox";
 import { Coffee, Scissors, SquareOff } from "lucide-react";
 // import { CarouselY } from "@/components/ui/CarouselY";
-import { getUsers } from "../api/users.js";
+import { getUsers } from "../API/users.js";
 import { useEffect, useState } from "react";
 
 export default function Home() {
