@@ -1,6 +1,10 @@
 import { MapPin, Navigation } from "lucide-react";
-const AddressBox = ({props}) => {
-  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${props.latitude},${props.longitude}`;
+const AddressBox = ({
+  address = "اصفهان، خیابان چهارباغ عباسی، مجتمع تجاری پارت، طبقه اول",
+  lat = 32.6546,
+  lng = 51.668,
+}) => {
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
   return (
     <div className="w-full  p-5 shadow-lg flex flex-col gap-8">
       <div className="flex items-center gap-3">
@@ -10,14 +14,14 @@ const AddressBox = ({props}) => {
         <div className="flex flex-col gap-1">
           <span className="text-sm font-medium text-slate-600">نشانی دقیق</span>
           <p className="text-md font-semibold text-slate-400 leading-relaxed">
-            {props.address}
+            {address}
           </p>
         </div>
       </div>
       <div className="relative size-full minh rounded-xl overflow-hidden border border-slate-400 group mx-auto">
         <iframe
           title="location-map"
-          src={`https://maps.google.com/maps?q=${props.latitude},${props.longitude}&z=15&output=embed`}
+          src={`https://maps.google.com/maps?q=${lat},${lng}&z=15&output=embed`}
           className="w-full h-full border-0 grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none"
           loading="lazy"
         />

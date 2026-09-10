@@ -1,54 +1,32 @@
 import Business from "../models/Business.js";
 const addBusiness = async (req, res) => {
   const {
-    title,
+    businessName,
     category,
     description,
-    mobile,
-    phone,
-    instagram,
-    website,
+    businessPhone,
     province,
     city,
     neighborhood,
     address,
-    latitude,
-    longitude,
-    amenities,
-    is24Hours,
-    openTime,
-    closeTime,
+    workingTime,
     workingDay,
-    coverImage,
-    gallery,
-    uniqName,
+    media,
   } = req.body;
-  // console.log(title);
-  await Business.create({
-    title,
-    category,
-    description,
-    mobile,
-    phone,
-    instagram,
-    website,
-    province,
-    city,
-    neighborhood,
-    address,
-    latitude,
-    longitude,
-    amenities,
-    is24Hours,
-    openTime,
-    closeTime,
-    workingDay,
-    coverImage,
-    gallery,
-    uniqName,
-  });
-  console.log("sakt");
   try {
+    await Business.create({
+      businessName,
+      category,
+      description,
+      businessPhone,
+      province,
+      city,
+      neighborhood,
+      address,
+      workingTime,
+      workingDay,
+      media,
+    });
     res.json({ message: "business added successfully" });
   } catch (error) {
     res.json({ message: error });
@@ -68,9 +46,4 @@ const getAllBusiness = async (req, res) => {
   const allBusiness = await Business.find({});
   res.json(allBusiness);
 };
-const getOneBusiness = async (req, res) => {
-  const { uniqName } = req.params;
-  const business = await Business.findOne({ uniqName });
-  res.json(business);
-};
-export { addBusiness, updateBusiness, getAllBusiness, getOneBusiness };
+export { addBusiness, updateBusiness ,getAllBusiness};

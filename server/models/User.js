@@ -14,6 +14,11 @@ const userSchema = new mongoose.Schema(
       // unique: true,
       trim: true,
     },
+    password: {
+      type: String,
+      // required: [true, "رمز عبور الزامی است"],
+      minLength: 6,
+    },
     role: {
       type: String,
       enum: ["client", "provider", "admin"],

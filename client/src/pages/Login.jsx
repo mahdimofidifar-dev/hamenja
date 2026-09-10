@@ -1,36 +1,21 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Phone, ShieldCheck } from "lucide-react";
 import { OTP } from "../components/forms/Otp";
-import { auth } from "/api/users";
 
 export default function Auth() {
   const [step, setStep] = useState(1);
-  const [phone, setPhone] = useState("");
-  const [opt, setOpt] = useState("");
-  const [authUser, setAuthUser] = useState([]);
+  const [phoneNumber, setPhoneNumber] = useState("");
+
   const handlePhoneSubmit = (e) => {
     e.preventDefault();
-    if (phone.length === 11) {
+    if (phoneNumber.length === 11) {
+      // اینجا بعداً ریوئست ارسال کد به بک‌اند زده می‌شود
       setStep(2);
     } else {
       alert("لطفاً شماره موبایل معتبر ۱۱ رقمی وارد کنید.");
     }
   };
 
-  const handelOpt = (code) => {
-    setOpt(code);
-  };
-  useEffect(() => {
-    if (opt.length === 4) {
-      const sendData = async () => {
-        const data = await auth({ phone, opt });
-        setAuthUser(data);
-      };
-      sendData();
-    }
-  }, [opt, phone]);
-  console.log(authUser);
-  
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 dir-rtl">
       <div className="max-w-md w-full bg-white rounded-2xl shadow-xl border border-slate-100 p-8">
@@ -44,7 +29,7 @@ export default function Auth() {
           <p className="text-slate-500 text-sm mt-2">
             {step === 1
               ? "برای دسترسی به امکانات سایت و ثبت نظر، شماره خود را وارد کنید"
-              : `کد ۴ رقمی ارسال شده به شماره ${phone} را وارد کنید`}
+              : `کد ۴ رقمی ارسال شده به شماره ${phoneNumber} را وارد کنید`}
           </p>
         </div>
 
@@ -59,8 +44,8 @@ export default function Auth() {
                   type="tel"
                   maxLength="11"
                   placeholder="09123456789"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
                   className="w-full pl-4 pr-11 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white text-left text-lg font-mono tracking-wider transition-all"
                   required
                 />
@@ -77,7 +62,7 @@ export default function Auth() {
           </form>
         )}
 
-        {step === 2 && <OTP onOtpComplete={handelOpt} />}
+        {step === 2 && <OTP />}
       </div>
     </div>
   );

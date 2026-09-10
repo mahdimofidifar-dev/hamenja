@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-export default function Carousel({ images }) {
+export default function Carousel({ images = [1, 2, 3, 4, 5] }) {
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-6">
       <Swiper
@@ -27,7 +27,7 @@ export default function Carousel({ images }) {
               {/* <span>Slide {item}</span> */}
               <img src={item} alt="" />
 
-              {/* <div className="absolute inset-0 bg-indigo-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" /> */}
+              <div className="absolute inset-0 bg-indigo-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
           </SwiperSlide>
         ))}

@@ -4,24 +4,22 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
-// import { useAuth } from "@/context/isLogin";
-// import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useAuth } from "@/context/isLogin";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-export function OTP({ onOtpComplete }) {
-  // const navigate = useNavigate();
+export function OTP() {
+  const navigate = useNavigate();
   const [otp, setOtp] = useState("");
+  const { login } = useAuth();
+  const handler = (val) => {
+    setOtp(val);
 
-  useEffect(() => {
-    if (otp.length === 4) {
-      onOtpComplete(otp);
+    if (val.length === 4) {
+      login();
+      navigate("/");
     }
-  }, [otp, onOtpComplete]);
-
-  const handler = (value) => {
-    setOtp(value);
   };
-
   return (
     <div dir="ltr" className="w-full">
       <InputOTP

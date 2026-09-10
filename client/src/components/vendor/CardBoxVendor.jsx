@@ -2,13 +2,20 @@ import { CarouselY } from "@/components/common/CarouselY";
 import PhoneDialog from "@/components/forms/PhoneDialog";
 import { MapPin, MoreHorizontal, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
-
-const CardBox = ({ props }) => {
+const img = [
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFzuYME_c74VB_FFhy3aKERnjtwl5L7CnGQV90a_rAbA&s=10",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfWcpocZdujtUxGfCuheL4I2sxYvIcFVgN5vsynDMAWK9uw48QMMUVXNVT&s=10",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFzuYME_c74VB_FFhy3aKERnjtwl5L7CnGQV90a_rAbA&s=10",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfWcpocZdujtUxGfCuheL4I2sxYvIcFVgN5vsynDMAWK9uw48QMMUVXNVT&s=10",
+];
+const CardBox = ({ url = "/infoPage" }) => {
   return (
     <div className="box flex flex-col rounded-xl border gap-2 p-3">
-      <div className="name text-2xl">{props.title}</div>
+      <div className="name text-2xl">سلمونی حسن کچل</div>
       <div className="descreption text-md text-slate-500">
-        {props.description}
+        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده
+        از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و
+        سطرآنچنان که لازم است
       </div>
       {/* <div className="flex">
               <Star /> بدون نظر{" "}
@@ -18,9 +25,9 @@ const CardBox = ({ props }) => {
             </div> */}
       <div className="flex items-center text-slate-500">
         <MapPin />
-        <div className="address">{props.address}</div>
+        <div className="address">اصفهان میدان آزادی</div>
       </div>
-      <CarouselY col="3" className="" img={props.gallery} />
+      <CarouselY col="3" className="" img={img} />
       <div className="cont flex w-full justify-evenly">
         <PhoneDialog
           contentButton={
@@ -30,7 +37,7 @@ const CardBox = ({ props }) => {
           }
         />
         <Link
-          to={`/lists/${props.uniqName}`}
+          to={url}
           className="flex h-12 w-36 justify-center text-md items-center border rounded-md gap-2"
         >
           <MoreHorizontal className="size-4.5" />

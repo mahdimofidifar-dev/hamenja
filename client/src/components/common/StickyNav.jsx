@@ -8,8 +8,8 @@ import {
 } from "@/components/ui/dialog";
 import { Navigation } from "lucide-react";
 
-const StickyNav = ({ latitude, longitude, phone }) => {
-  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+const StickyNav = ({ lat = 32.6546, lng = 51.668 }) => {
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
 
   return (
     <nav className="sticky flex items-center  bottom-0 right-0 h-20 w-full b backdrop-blur-2xl z-50 ">
@@ -29,7 +29,7 @@ const StickyNav = ({ latitude, longitude, phone }) => {
           </DialogHeader>
           <a
             className="bg-brand-500 w-full text-center rounded-lg p-3 px-4"
-            href={`tel:${phone}`}
+            href="tel:09356279099"
           >
             تماس
           </a>
