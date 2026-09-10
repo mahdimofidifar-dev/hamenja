@@ -4,8 +4,9 @@ const userController = async (req, res) => {
 };
 const opt = "1213";
 
-const auth = async (req, res) => {
+const login = async (req, res) => {
   const { phone, optCode } = req.body;
+  console.log(phone);
 
   const findUser = await User.findOne({ phone });
   if (!findUser) {
@@ -41,4 +42,4 @@ const deleteUser = async (req, res) => {
   } catch (error) {}
 };
 
-export { getUsers, getUser, deleteUser, auth };
+export { getUsers, getUser, deleteUser, login };
