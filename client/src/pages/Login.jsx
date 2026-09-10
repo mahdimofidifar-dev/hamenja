@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Phone, ShieldCheck } from "lucide-react";
 import { OTP } from "../components/forms/Otp";
-import { auth } from "/api/users";
+import { auth } from "../apis/users";
 
 export default function Auth() {
   const [step, setStep] = useState(1);
@@ -30,7 +30,7 @@ export default function Auth() {
     }
   }, [opt, phone]);
   console.log(authUser);
-  
+
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 dir-rtl">
       <div className="max-w-md w-full bg-white rounded-2xl shadow-xl border border-slate-100 p-8">
