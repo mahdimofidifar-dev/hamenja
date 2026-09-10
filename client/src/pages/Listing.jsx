@@ -27,7 +27,7 @@ const Listing = () => {
         <div className="head">
           <div className="search-box p-3 flex gap-2">
             <SearchBox className="w-[80%]" />
-            <button className="map flex text-sm text-bran-400 justify-center items-center w-[20%] items-center gap-3 rounded-md border border-brand-300 bg-white/80 px-4 py-3 text-right shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-slate-300 hover:shadow-md">
+            <button className="map flex text-sm text-bran-400 justify-center w-[20%] items-center gap-3 rounded-md border border-brand-300 bg-white/80 px-4 py-3 text-right shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-slate-300 hover:shadow-md">
               <Map className="size-5" /> نقشه
             </button>
           </div>
