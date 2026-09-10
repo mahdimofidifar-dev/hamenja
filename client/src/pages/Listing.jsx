@@ -6,7 +6,7 @@ import FilterBar from "@/components/forms/FilterBar";
 import SearchBox from "@/components/forms/SearchBox";
 import { Map } from "lucide-react";
 import { useEffect, useState } from "react";
-import { getAllBusiness } from "../../api/business";
+import { getAllBusiness } from "../../api/business.js";
 
 const Listing = () => {
   const [business, setBusiness] = useState([]);
