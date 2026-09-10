@@ -15,6 +15,9 @@ export default defineConfig({
   server: {
     host: true,
     allowedHosts: true,
+    hmr: {
+      clientPort: 443,
+    },
   },
   preview: {
     host: true,
