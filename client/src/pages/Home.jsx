@@ -4,13 +4,19 @@ import CategoryBox from "@/components/vendor/CategoryBox";
 import SearchBox from "@/components/forms/SearchBox";
 import { Coffee, Scissors, SquareOff } from "lucide-react";
 // import { CarouselY } from "@/components/ui/CarouselY";
+import { getUsers } from "/api/users";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  // const img = [
-  //   "/public/naghshejahan.jpg",
-  //   "/public/siosepol.jpg",
-  //   "/public/monarjonbon.jpeg",
-  // ];
+  const [user, setUser] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getUsers();
+      setUser(data);
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="">
       <Header />
@@ -22,6 +28,10 @@ export default function Home() {
           </div>
           <SearchBox />
         </div>
+        {/* <div className="">{user}</div> */}
+        {/* {user.map((item) => {
+          <div className="">{item}</div>;
+        })} */}
         {/* <div className="">
           <CarouselY className="w-full h-20" img={img} col="2" />
           <div class="w-72 h-48 overflow-hidden rounded-xl">

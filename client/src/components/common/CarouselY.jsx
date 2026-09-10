@@ -25,9 +25,12 @@ export function CarouselY({ img, className, col }) {
     >
       <CarouselContent className="h-full">
         {img.map((url) => (
-          <CarouselItem className={`size-full  basis-1/${col}`}>
-            <div class="w-72 h-48 overflow-hidden rounded-xl">
-              <img src={url} class="w-full h-full object-cover" />
+          <CarouselItem
+            key={Math.random(1, 100)}
+            className={`size-full  basis-1/${col}`}
+          >
+            <div className="w-72 h-48 overflow-hidden rounded-xl">
+              <img src={url} className="w-full h-full object-cover" />
             </div>
           </CarouselItem>
         ))}

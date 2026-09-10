@@ -1,24 +1,28 @@
 import mongoose from "mongoose";
 
 const businessModel = new mongoose.Schema({
-  businessName: {
-    type: String,
-  },
+  title: { type: String },
   category: {},
   description: {},
-  businessPhone: {
-    type: String,
-  },
+  mobile: { type: String },
+  phone: { type: String },
+  instagram: {},
+  website: {},
   province: { type: String },
   city: { type: String },
   neighborhood: { type: String },
   address: { type: String },
-  sanes: {},
+  latitude: {},
+  longitude: {},
+  amenities: {},
+  is24Hours: { type: Boolean },
+  openTime: {},
+  closeTime: {},
   workingDay: { type: String },
-  media: {
-    cover: { type: String },
-    album: { type: String },
-  },
+  coverImage: { type: String },
+  gallery: { type: Array },
+  sanes: {},
+  uniqName:{}
 });
-const Business = mongoose.model("Business", businessModel);
+const Business = mongoose.model("business", businessModel);
 export default Business;
