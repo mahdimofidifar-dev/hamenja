@@ -7,7 +7,7 @@ import { Step2Contact } from "./Step2Contact";
 import { Step3Location } from "./Step3Location";
 import { Step4Amenities } from "./Step4Amenities";
 import { Step5Gallery } from "./Step5Gallery";
-import { addBusiness } from "../../../api/business";
+import { addBusiness } from "#/business";
 
 const STEPS = [
   { id: 1, title: "اطلاعات پایه" },
