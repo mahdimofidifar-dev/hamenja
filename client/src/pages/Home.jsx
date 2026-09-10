@@ -53,12 +53,6 @@ export default function Home() {
               icon={<Scissors className="size-8" />}
               title="آرایشگاه"
             />
-            {/* <CategoryBox icon={<SquareOff className="size-8" />} />
-            <CategoryBox icon={<SquareOff className="size-8" />} />
-            <CategoryBox icon={<SquareOff className="size-8" />} />
-            <CategoryBox icon={<SquareOff className="size-8" />} />
-            <CategoryBox icon={<SquareOff className="size-8" />} />
-            <CategoryBox icon={<SquareOff className="size-8" />} /> */}
           </div>
         </div>
       </div>
