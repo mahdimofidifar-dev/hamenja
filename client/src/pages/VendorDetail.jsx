@@ -11,7 +11,7 @@ import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getOneBusiness } from "../../api/business";
+import { getOneBusiness } from "../api/business";
 
 const VenderDetail = () => {
   const { uniqName } = useParams();
