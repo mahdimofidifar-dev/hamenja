@@ -5,12 +5,25 @@ import FilterBar from "@/components/forms/FilterBar";
 
 import SearchBox from "@/components/forms/SearchBox";
 import { Map } from "lucide-react";
+import { useEffect, useState } from "react";
+import { getAllBusiness } from "../../api/business";
 
 const Listing = () => {
+  const [business, setBusiness] = useState([]);
+  useEffect(() => {
+    let data = null;
+    const fetchData = async () => {
+      data = await getAllBusiness();
+      setBusiness(data);
+    };
+    fetchData();
+  }, []);
+  console.log(business);
+
   return (
     <div className="flex flex-col gap-3">
       <Header />
-      <div className=" px-3">
+      <div className="px-3">
         <div className="head">
           <div className="search-box p-3 flex gap-2">
             <SearchBox className="w-[80%]" />
@@ -24,9 +37,10 @@ const Listing = () => {
           آرایشگاه های مردانه
         </div>
         <div className="lists flex flex-col gap-4">
-          <CardBox />
-          <CardBox />
-          <CardBox />
+          {business.map((item) => {
+            console.log(item);
+            return <CardBox key={item.id} props={item} />;
+          })}
         </div>
       </div>
       <Footer />
