@@ -2,7 +2,7 @@ import { CirclePlus } from "lucide-react";
 import { Link } from "react-router-dom";
 const Footer = () => {
   return (
-    <footer className="px-4 py-2 border-t bg-brand-50 border-slate-200">
+    <footer className="hidden px-4 py-2 border-t bg-brand-50 border-slate-200">
       <div className="flex flex-col gap-3 m-1">
         <p className="font-bold text-lg ">صاحب کسب و کارید؟</p>
         <span className="flex gap-3 ">

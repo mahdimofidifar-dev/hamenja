@@ -22,7 +22,7 @@ export default function Home() {
       <Header />
       <div className="">
         <div className="w-full h-56 rounded-lg bg-brand-500 p-3 py-9 flex flex-col gap-2">
-          <h1 className="text-2xl text-white">platform</h1>
+          <h1 className="text-2xl text-white">همینجا!؟</h1>
           <div className="des text-white">
             جست‌‌و‌جو در اطلاعات چندین کسب‌و‌کار محلی
           </div>

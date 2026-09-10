@@ -28,7 +28,7 @@ const Header = ({ ShowAddVendorBtn = true }) => {
       </Sheet>
 
       <Link to="/" className="logo">
-        booking platform
+        همینجا!؟
       </Link>
       <div className="flex items-center gap-2">
         {ShowAddVendorBtn && (
@@ -36,7 +36,6 @@ const Header = ({ ShowAddVendorBtn = true }) => {
             <Store />
           </Link>
         )}
-
         {isLoggedIn === true ? (
           <Link to="/profile">
             <UserRound />
