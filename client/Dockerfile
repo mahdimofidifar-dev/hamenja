@@ -3,6 +3,7 @@ FROM node:20-alpine AS deps
 WORKDIR /app
 
 COPY package*.json ./
+RUN npm config set registry https://package-mirror.liara.ir/repository/npm/ 
 RUN npm install
 
 # مرحله ۲: ساخت و آماده‌سازی برنامه
