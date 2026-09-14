@@ -19,7 +19,6 @@ const STEPS = [
 
 export default function AddBusinessForm() {
   const [currentStep, setCurrentStep] = useState(1);
-  JSON.stringify({});
   const [formData, setFormData] = useState({
     // uniqName: "",
     // title: "گیم نت محله",
@@ -82,18 +81,24 @@ export default function AddBusinessForm() {
     coverImage: null,
     gallery: [],
   });
-
+  const [loading, setLoading] = useState(true);
   const handleNext = () => setCurrentStep((prev) => Math.min(prev + 1, 5));
   const handlePrev = () => setCurrentStep((prev) => Math.max(prev - 1, 1));
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const sendData = async () => {
-      await addBusiness(formData);
-    };
-    sendData();
-    console.log("دیتای نهایی ثبت شده:", formData);
-    alert("کسب‌وکار با موفقیت ثبت شد!");
+    try {
+      const sendData = async () => {
+        await addBusiness(formData);
+      };
+      sendData();
+    } catch (error) {
+      console.log(error);
+    } finally {
+
+      alert("کسب و کار شما با موفقیت ساخته شد");
+      navigation.back();
+    }
   };
 
   return (

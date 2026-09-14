@@ -1,4 +1,4 @@
-import { useAuth } from "@/context/isLogin";
+import { useAuth } from "@/context/authContext";
 import { Menu, UserRound, Store, LogIn, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
@@ -10,7 +10,8 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 const Header = ({ ShowAddVendorBtn = true }) => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, loading, user } = useAuth();
+
   return (
     <header className="flex justify-between items-center border-b  border-slate-100 px-4 h-14">
       <Sheet>
@@ -36,7 +37,7 @@ const Header = ({ ShowAddVendorBtn = true }) => {
             <Store />
           </Link>
         )}
-        {isLoggedIn === true ? (
+        {!loading && isLoggedIn ? (
           <Link to="/profile">
             <UserRound />
           </Link>

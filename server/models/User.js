@@ -8,9 +8,15 @@ const userSchema = new mongoose.Schema(
       trim: true,
       minLength: 2,
     },
+    lastName: {
+      type: String,
+      // required: [true, "نام الزامی است"],
+      trim: true,
+      minLength: 2,
+    },
     phone: {
       type: String,
-      required: [true, "شماره تماس الزامی است"],
+      // required: [true, "شماره تماس الزامی است"],
       // unique: true,
       trim: true,
     },
@@ -25,8 +31,8 @@ const userSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true, 
-  }
+    timestamps: true,
+  },
 );
 
 const User = mongoose.model("User", userSchema);
