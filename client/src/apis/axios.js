@@ -6,9 +6,6 @@ const api = axios.create({
   withCredentials: true,
 });
 
-// -------------------------
-// Request Interceptor
-// -------------------------
 
 api.interceptors.request.use((config) => {
   const token = getAccessToken();
@@ -20,15 +17,10 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// -------------------------
-// Refresh Promise Lock
-// -------------------------
 
 let refreshPromise = null;
 
 const refreshAccessToken = async () => {
-  // اگر قبلاً refresh در حال انجام است،
-  // همان Promise را به درخواست‌های دیگر می‌دهیم.
   if (!refreshPromise) {
     refreshPromise = api
       .post("/refresh")
@@ -45,9 +37,6 @@ const refreshAccessToken = async () => {
   return refreshPromise;
 };
 
-// -------------------------
-// Response Interceptor
-// -------------------------
 
 api.interceptors.response.use(
   (response) => response,
@@ -55,17 +44,14 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    // اگر خطا 401 نیست
     if (error.response?.status !== 401) {
       return Promise.reject(error);
     }
 
-    // اگر درخواست قبلاً retry شده
     if (originalRequest._retry) {
       return Promise.reject(error);
     }
 
-    // خود refresh نباید دوباره refresh شود
     if (originalRequest.url?.includes("/refresh")) {
       return Promise.reject(error);
     }

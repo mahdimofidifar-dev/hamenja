@@ -22,7 +22,6 @@ export default function Auth() {
   const [name, setName] = useState();
   const [lastName, setLastName] = useState();
   const { login } = useAuth();
-  console.log(name, lastName);
 
   // -------------------------
   // Request OTP
@@ -63,10 +62,8 @@ export default function Auth() {
       phone,
       otpCode: otp,
     });
-    console.log(response);
     if (response.status === 201) {
       const { accessToken, user } = response.data;
-      console.log(user, accessToken);
       login(user, accessToken);
       navigate(-1);
     }

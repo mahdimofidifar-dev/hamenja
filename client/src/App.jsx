@@ -9,7 +9,7 @@ import Listing from "./pages/Listing";
 import VenderDetail from "./pages/VendorDetail";
 import Auth from "./pages/Login";
 import UserDashboard from "./pages/UserDashboard";
-import AddVendor from "./pages/AddBusiness";
+import AddBusiness from "./pages/AddBusiness";
 
 const RootLayout = () => {
   return (
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
       { path: "lists/:uniqName", element: <VenderDetail /> },
       { path: "auth", element: <Auth /> },
       { path: "profile", element: <UserDashboard /> },
-      { path: "addvendor", element: <AddVendor /> },
+      { path: "add-business", element: <AddBusiness /> },
     ],
   },
 ]);
