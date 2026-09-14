@@ -1,5 +1,5 @@
 import Business from "../models/Business.js";
-const addBusiness = async (req, res) => {
+export const addBusiness = async (req, res) => {
   const {
     title,
     category,
@@ -22,8 +22,8 @@ const addBusiness = async (req, res) => {
     coverImage,
     gallery,
     uniqName,
+    ownerId,
   } = req.body;
-  // console.log(title);
   await Business.create({
     title,
     category,
@@ -46,15 +46,15 @@ const addBusiness = async (req, res) => {
     coverImage,
     gallery,
     uniqName,
+    ownerId,
   });
-  console.log("sakt");
   try {
     res.json({ message: "business added successfully" });
   } catch (error) {
     res.json({ message: error });
   }
 };
-const updateBusiness = async (req, res) => {
+export const updateBusiness = async (req, res) => {
   const id = req.params.id;
   const update = req.body;
   try {
@@ -64,13 +64,12 @@ const updateBusiness = async (req, res) => {
     res.json({ message: error });
   }
 };
-const getAllBusiness = async (req, res) => {
+export const getAllBusiness = async (req, res) => {
   const allBusiness = await Business.find({});
   res.json(allBusiness);
 };
-const getOneBusiness = async (req, res) => {
+export const getOneBusiness = async (req, res) => {
   const { uniqName } = req.params;
   const business = await Business.findOne({ uniqName });
   res.json(business);
 };
-export { addBusiness, updateBusiness, getAllBusiness, getOneBusiness };

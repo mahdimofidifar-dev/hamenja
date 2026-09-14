@@ -8,6 +8,7 @@ import { Step3Location } from "./Step3Location";
 import { Step4Amenities } from "./Step4Amenities";
 import { Step5Gallery } from "./Step5Gallery";
 import { addBusiness } from "../../apis/business.js";
+import { useAuth } from "@/context/authContext";
 
 const STEPS = [
   { id: 1, title: "اطلاعات پایه" },
@@ -18,54 +19,26 @@ const STEPS = [
 ];
 
 export default function AddBusinessForm() {
+  const { user } = useAuth();
+  console.log(user._id);
+
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
-    // uniqName: "",
-    // title: "گیم نت محله",
-    // categories: ["gamenet", "entertainment"],
-    // description: "گیمنت محل",
-    // mobile: "۰۹۳۵۶۲۷۹۰۹۹",
-    // phone: "۰۳۱۳۲۶۰۵۸۶۵",
-    // instagram: "kjsdkhf",
-    // website: "hamenja.ir",
-    // province: "اصفهان",
-    // city: "اصفهان",
-    // neighborhood: "شهرستان",
-    // address: "شهریتان خیابان بازارچه ",
-    // latitude: 35.65414545546027,
-    // longitude: 51.34685615857849,
-    // amenities: ["wifi", "cafe", "pos"],
-    // is24Hours: false,
-    // openTime: "09:00",
-    // closeTime: "23:00",
-    // workingDays: [
-    //   "شنبه",
-    //   "یکشنبه",
-    //   "دوشنبه",
-    //   "سه‌شنبه",
-    //   "چهار‌شتبه",
-    //   "پنج‌شنبه",
-    //   "جمعه",
-    //   "thu",
-    //   "tue",
-    //   "mon",
-    // ],
-    // coverImage: "",
-    // gallery: [""],
-    title: "",
-    categories: [],
-    description: "",
-    mobile: "",
-    phone: "",
+    uniqName: "gamenet",
+    title: "گیم نت محله",
+    categories: ["gamenet", "entertainment"],
+    description: "گیمنت محل",
+    mobile: "09356279099",
+    phone: "03132605890",
     instagram: "",
-    website: "",
-    province: "",
-    city: "",
-    neighborhood: "",
-    address: "",
-    latitude: 35.6892,
-    longitude: 51.389,
-    amenities: [],
+    website: "hamenja.ir",
+    province: "اصفهان",
+    city: "اصفهان",
+    neighborhood: "شهرستان",
+    address: "شهرستان خیابان بازارچه ",
+    latitude: 35.65414545546027,
+    longitude: 51.34685615857849,
+    amenities: ["wifi", "cafe", "pos"],
     is24Hours: false,
     openTime: "09:00",
     closeTime: "23:00",
@@ -77,10 +50,43 @@ export default function AddBusinessForm() {
       "چهار‌شتبه",
       "پنج‌شنبه",
       "جمعه",
+      "thu",
+      "tue",
+      "mon",
     ],
-    coverImage: null,
-    gallery: [],
+    coverImage: "",
+    gallery: [""],
+    // title: "",
+    // categories: [],
+    // description: "",
+    // mobile: "",
+    // phone: "",
+    // instagram: "",
+    // website: "",
+    // province: "",
+    // city: "",
+    // neighborhood: "",
+    // address: "",
+    // latitude: 35.6892,
+    // longitude: 51.389,
+    // amenities: [],
+    // is24Hours: false,
+    // openTime: "09:00",
+    // closeTime: "23:00",
+    // workingDays: [
+    //   "شنبه",
+    //   "یکشنبه",
+    //   "دوشنبه",
+    //   "سه‌شنبه",
+    //   "چهار‌شتبه",
+    //   "پنج‌شنبه",
+    //   "جمعه",
+    // ],
+    // coverImage: null,
+    // gallery: [],
+    ownerId: user._id,
   });
+
   const [loading, setLoading] = useState(true);
   const handleNext = () => setCurrentStep((prev) => Math.min(prev + 1, 5));
   const handlePrev = () => setCurrentStep((prev) => Math.max(prev - 1, 1));
@@ -90,12 +96,12 @@ export default function AddBusinessForm() {
     try {
       const sendData = async () => {
         await addBusiness(formData);
+        console.log(formData);
       };
       sendData();
     } catch (error) {
       console.log(error);
     } finally {
-
       alert("کسب و کار شما با موفقیت ساخته شد");
       navigation.back();
     }

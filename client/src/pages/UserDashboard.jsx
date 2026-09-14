@@ -16,7 +16,7 @@ export default function UserDashboard() {
   const { user, loading } = useAuth();
   console.log(loading);
 
-  const uniqueIdentifier = user?._id;
+  const uniqueIdentifier = user._id;
   if (loading) {
     return <div className="loading">...</div>;
   } else {

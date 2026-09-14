@@ -22,7 +22,8 @@ const businessModel = new mongoose.Schema({
   coverImage: { type: String },
   gallery: { type: Array },
   sanes: {},
-  uniqName:{}
+  uniqName: {},
+  ownerId: {},
 });
 const Business = mongoose.model("business", businessModel);
 export default Business;
