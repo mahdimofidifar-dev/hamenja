@@ -65,7 +65,7 @@ export default function Auth() {
     if (response.status === 201) {
       const { accessToken, user } = response.data;
       login(user, accessToken);
-      navigate(-1);
+      return navigate(-1);
     }
   };
   // -------------------------
@@ -87,7 +87,7 @@ export default function Auth() {
           if (response.status === 201) {
             const { accessToken, user } = response.data;
             login(user, accessToken);
-            navigate(-1);
+            return navigate(-1);
           }
         }
       } catch (error) {
@@ -95,12 +95,11 @@ export default function Auth() {
 
         setOtp("");
 
-        return alert("کد تایید صحیح نیست.");
+        alert("کد تایید صحیح نیست.");
       }
     };
-
     verifyOtp();
-  }, [otp, phone, login, navigate]);
+  }, [otp, phone]);
 
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 dir-rtl">

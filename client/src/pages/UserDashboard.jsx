@@ -1,9 +1,9 @@
+import { DropdownMenuProfile } from "@/components/common/DropDown";
 import { useAuth } from "@/context/authContext";
 import Avatar from "boring-avatars";
 import {
   BriefcaseBusiness,
   Calendar,
-  EllipsisVertical,
   Map,
   MapPin,
   MessageSquareText,
@@ -16,8 +16,8 @@ export default function UserDashboard() {
   const { user, loading } = useAuth();
   console.log(loading);
 
-  const uniqueIdentifier = user._id;
-  if (loading) {
+  // const uniqueIdentifier = user._id;
+  if (loading === true) {
     return <div className="loading">...</div>;
   } else {
     return (
@@ -27,7 +27,7 @@ export default function UserDashboard() {
       "
         >
           <div className="‍‍">
-            <EllipsisVertical className="text-slate-200 absolute top-4 left-4" />
+            <DropdownMenuProfile />
           </div>
           <div
             className="info flex items-center gap-3
@@ -36,7 +36,7 @@ export default function UserDashboard() {
             <Avatar
               className="rounded-full border-2 border-s-emerald-50"
               size={90}
-              name={uniqueIdentifier}
+              name={user._id}
               variant="beam" // گزینه‌ها: "marble", "beam", "pixel", "sunset", "bauhaus", "ring"
               colors={["#0a2540", "#635bff", "#00d4b2", "#2e1065", "#f59e0b"]}
             />
