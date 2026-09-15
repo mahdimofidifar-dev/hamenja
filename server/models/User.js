@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -32,8 +31,15 @@ const userSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+    strictPopulate: false,
   },
 );
-
+userSchema.virtual("business", {
+  ref: "business",
+  localField: "_id",
+  foreignField: "ownerId",
+});
 const User = mongoose.model("User", userSchema);
 export default User;

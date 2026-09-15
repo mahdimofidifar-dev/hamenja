@@ -19,7 +19,7 @@ export function AuthProvider({ children }) {
       try {
         const { data } = await api.post("/users/refresh");
 
-        setAccessToken(data.accessToken); 
+        setAccessToken(data.accessToken);
 
         const response = await api.get("/users/me");
 

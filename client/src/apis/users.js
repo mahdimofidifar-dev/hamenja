@@ -24,6 +24,10 @@ export const getUser = async () => {
   const response = await api.get("/users/:id");
   return response.data;
 };
+export const getMe = async () => {
+  const response = await api.get("/users/me");
+  return response.data.user;
+};
 export const deleteUser = async () => {
   const response = api.delete("/users/:id");
   return response.data;

@@ -9,15 +9,12 @@ import {
   MessageSquareText,
   Trophy,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function UserDashboard() {
   const { user, loading } = useAuth();
-  console.log(loading);
-
-  // const uniqueIdentifier = user._id;
-  if (loading === true) {
+  if (loading) {
     return <div className="loading">...</div>;
   } else {
     return (
@@ -48,7 +45,7 @@ export default function UserDashboard() {
         </div>
         <div className="hero p-3 w-full flex flex-col justify-center items-start">
           <Link
-            to="#"
+            to="businesses"
             className=" w-full py-3 flex items-center gap-3 border-b "
           >
             <BriefcaseBusiness />

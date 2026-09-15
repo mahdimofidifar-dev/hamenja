@@ -23,7 +23,11 @@ const businessModel = new mongoose.Schema({
   gallery: { type: Array },
   sanes: {},
   uniqName: {},
-  ownerId: {},
+  ownerId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users",
+    required: true,
+  },
 });
 const Business = mongoose.model("business", businessModel);
 export default Business;

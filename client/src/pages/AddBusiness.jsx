@@ -3,6 +3,10 @@ import { useAuth } from "@/context/authContext";
 import { Link } from "react-router-dom";
 export default function AddBusiness() {
   const { isLoggedIn } = useAuth();
+  const { user, loading } = useAuth();
+
+  console.log(user);
+
   return (
     <div>
       {isLoggedIn ? (

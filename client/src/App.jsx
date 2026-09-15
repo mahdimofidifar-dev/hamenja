@@ -6,10 +6,11 @@ import {
 } from "react-router-dom";
 import Home from "./pages/Home";
 import Listing from "./pages/Listing";
-import VenderDetail from "./pages/VendorDetail";
+import VenderDetail from "./pages/BusinessesDetail";
 import Auth from "./pages/Login";
 import UserDashboard from "./pages/UserDashboard";
 import AddBusiness from "./pages/AddBusiness";
+import { UserBusinesses } from "./pages/UserBusinesses";
 
 const RootLayout = () => {
   return (
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
       { path: "lists/:uniqName", element: <VenderDetail /> },
       { path: "auth", element: <Auth /> },
       { path: "profile", element: <UserDashboard /> },
+      { path: "profile/businesses", element: <UserBusinesses /> },
       { path: "add-business", element: <AddBusiness /> },
     ],
   },

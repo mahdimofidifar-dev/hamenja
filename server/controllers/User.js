@@ -1,4 +1,6 @@
 import User from "../models/User.js";
+import Business from "../models/Business.js";
+
 import OTP from "../models/Otp.js";
 import bcrypt from "bcrypt";
 import { randomInt } from "crypto";
@@ -133,7 +135,6 @@ export const signIn = async (req, res) => {
 export const refreshAccessToken = async (req, res) => {
   try {
     const { refreshToken } = req.cookies;
-    console.log(refreshToken);
 
     if (!refreshToken) {
       return res.status(401).json({
@@ -202,9 +203,8 @@ export const getUsers = async (req, res) => {
 };
 export const me = async (req, res) => {
   const { userId } = req.user;
-  const user = await User.findById(userId);
-  console.log("ME USER:", user);
-  res.json({
+  const user = await User.findById(userId).populate("business");
+  res.status(201).json({
     message: "You are authenticated",
     user,
   });
@@ -220,8 +220,7 @@ export const getUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
   const Id = req.params.id;
   try {
-    const user = await User.findOneAndDelete({ Id });
+    await User.findOneAndDelete({ Id });
     res.json({ message: "user deleted" });
-    console.log(user);
   } catch (error) {}
 };
