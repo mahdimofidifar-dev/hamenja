@@ -4,10 +4,10 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
 } from "@/components/ui/carousel";
-// import { dir } from "node:console";
-
-export function CarouselY({ img, className, col }) {
+export function CarouselY({ img = [], className, col }) {
   return (
     <Carousel
       className={className}
@@ -30,13 +30,14 @@ export function CarouselY({ img, className, col }) {
             className={`size-full  basis-1/${col}`}
           >
             <div className="w-72 h-48 overflow-hidden rounded-xl">
-              <img src={url} className="w-full h-full object-cover" />
+              <img
+                src={`http://localhost:5000${url}`}
+                className="w-full h-full object-cover"
+              />
             </div>
           </CarouselItem>
         ))}
       </CarouselContent>
-      {/* <CarouselNext />
-      <CarouselPrevious /> */}
     </Carousel>
   );
 }

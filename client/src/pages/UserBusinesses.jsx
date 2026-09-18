@@ -1,18 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Eye, Pencil } from "lucide-react";
+import { Eye, Pencil, Trash, Store } from "lucide-react";
 import { useAuth } from "@/context/authContext";
+import { deleteBusiness } from "@/apis/business";
+
 export const UserBusinesses = () => {
   const { user, loading } = useAuth();
   if (loading) {
     return <>...</>;
   } else {
-    const businesses = user.business;
+    const businesses = user.business || [];
+
     if (!businesses.length) {
       return (
         <div className="bg-white rounded-2xl p-8 text-center shadow-sm border border-gray-100 mt-4">
+          <Link
+            to="/profile"
+            className="back w-full flex justify-center items-center text-xl h-20 bg-brand-100 mb-2"
+          >
+            بازگشت به پروفایل
+          </Link>{" "}
           <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3">
-            {/* <BsShop size={28} /> */}
+            <Store size={28} />
           </div>
           <h3 className="font-bold text-gray-800 mb-1">کسب‌وکاری یافت نشد</h3>
           <p className="text-sm text-gray-500 mb-4">
@@ -28,8 +37,20 @@ export const UserBusinesses = () => {
       );
     }
 
+    const deleteThisBusiness = async (id) => {
+      const del = confirm("آیا از پاک کردن کسب و کار خود مطمعنید؟");
+      del === true && (await deleteBusiness(id));
+    };
+
     return (
       <div className="space-y-3 mt-4">
+        <Link
+          to="/profile"
+          className="back w-full flex justify-center items-center text-xl h-20 bg-brand-100"
+        >
+          بازگشت به پروفایل
+        </Link>
+
         <div className="flex justify-between items-center px-1">
           <span className="font-bold text-gray-700 text-sm">
             کسب‌وکارهای ثبت‌شده
@@ -66,15 +87,23 @@ export const UserBusinesses = () => {
             <div className="flex items-center gap-2">
               <Link
                 to=""
-                className="p-2 text-gray-400 hover:text-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
+                className="p-2  text-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
               >
                 <Pencil size={18} />
               </Link>
               <Link
                 to={`/lists/${item.uniqName}`}
-                className="p-2 text-gray-400 hover:text-green-600 rounded-lg hover:bg-green-50 transition-colors"
+                className="p-2  text-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
               >
                 <Eye size={18} />
+              </Link>
+              <Link
+                onClick={() => {
+                  deleteThisBusiness(item._id);
+                }}
+                className="p-2 text-red-600 rounded-lg hover:bg-red-50 transition-colors"
+              >
+                <Trash size={18} />
               </Link>
             </div>
           </div>

@@ -9,40 +9,52 @@ import { useEffect, useState } from "react";
 import { getAllBusiness } from "../apis/business.js";
 
 const Listing = () => {
+  const [loading, setLoading] = useState(true);
   const [business, setBusiness] = useState([]);
   useEffect(() => {
     let data = null;
     const fetchData = async () => {
-      data = await getAllBusiness();
-      setBusiness(data);
+      try {
+        data = await getAllBusiness();
+        setBusiness(data);
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchData();
-  }, []);
+  }, [loading]);
   console.log(business);
 
   return (
     <div className="flex flex-col gap-3">
       <Header />
-      <div className="px-3">
-        <div className="head">
-          <div className="search-box p-3 flex gap-2">
-            <SearchBox className="w-[80%]" />
-            <button className="map flex text-sm text-bran-400 justify-center w-[20%] items-center gap-3 rounded-md border border-brand-300 bg-white/80 px-4 py-3 text-right shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-slate-300 hover:shadow-md">
-              <Map className="size-5" /> نقشه
-            </button>
+      {loading === false ? (
+        <div className="px-3">
+          <div className="head">
+            <div className="search-box p-3 flex gap-2">
+              <SearchBox className="w-[80%]" />
+              <button className="map flex text-sm text-bran-400 justify-center w-[20%] items-center gap-3 rounded-md border border-brand-300 bg-white/80 px-4 py-3 text-right shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-slate-300 hover:shadow-md">
+                <Map className="size-5" /> نقشه
+              </button>
+            </div>
+            <FilterBar />
           </div>
-          <FilterBar />
+          <div className="list-title p-3 border w-fit rounded-2xl my-2">
+            آرایشگاه های مردانه
+          </div>
+          <div className="lists flex flex-col gap-4">
+            {business.map((item) => {
+              return <CardBox key={item.id} props={item} loading={loading} />;
+            })}
+          </div>
         </div>
-        <div className="list-title p-3 border w-fit rounded-2xl my-2">
-          آرایشگاه های مردانه
-        </div>
-        <div className="lists flex flex-col gap-4">
-          {business.map((item) => {
-            console.log(item);
-            return <CardBox key={item.id} props={item} />;
-          })}
-        </div>
-      </div>
+      ) : (
+        <div>...</div>
+      )}
+
       <Footer />
     </div>
   );

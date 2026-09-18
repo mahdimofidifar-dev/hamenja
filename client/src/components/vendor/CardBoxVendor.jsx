@@ -1,26 +1,46 @@
 import { CarouselY } from "@/components/common/CarouselY";
 import PhoneDialog from "@/components/forms/PhoneDialog";
-import { MapPin, MoreHorizontal, Phone } from "lucide-react";
+import { MapPin, MoreHorizontal, Phone, Star, CircleIcon } from "lucide-react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const CardBox = ({ props }) => {
+const CardBox = ({ props, loading }) => {
   return (
     <div className="box flex flex-col rounded-xl border gap-2 p-3">
       <div className="name text-2xl">{props.title}</div>
-      <div className="descreption text-md text-slate-500">
+      <div className="description text-md text-slate-500">
         {props.description}
       </div>
-      {/* <div className="flex">
-              <Star /> بدون نظر{" "}
-              <div className="size-4 border-5 rounded-full border-neutral-400"></div>
-              <span>بسته تا</span>
-              <span className="open-time">09:00</span>
-            </div> */}
+      <div className="flex  gap-2 text-text-muted">
+        {
+          <div className="flex gap-0.5">
+            <div className="relative w-5 h-5">
+              <Star className="absolute right-0 w-5 h-5 text-yellow-400" />
+              <div
+                className="absolute inset-y-0 right-0 overflow-hidden"
+                style={{ width: `${props.rate * 10 * 2}%` }}
+              >
+                <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+              </div>
+            </div>
+            <div className="flex items-center justify-center h-fit">
+              {props.rate}
+            </div>
+          </div>
+        }
+        <div className="flex items-center gap-0.5">
+          <CircleIcon className="size-5" />
+          <span className="status">بسته</span>
+          <span>تا 08:00 </span>
+        </div>
+      </div>
       <div className="flex items-center text-slate-500">
         <MapPin />
         <div className="address">{props.address}</div>
       </div>
+
       <CarouselY col="3" className="" img={props.gallery} />
+
       <div className="cont flex w-full justify-evenly">
         <PhoneDialog
           contentButton={

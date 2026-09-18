@@ -19,15 +19,23 @@ const businessModel = new mongoose.Schema({
   openTime: {},
   closeTime: {},
   workingDay: { type: String },
-  coverImage: { type: String },
+  logo: { type: String },
   gallery: { type: Array },
   sanes: {},
   uniqName: {},
+  rate: { type: Number, default: 0 },
   ownerId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "users",
+    ref: "User",
     required: true,
   },
+  comments: [
+  {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "comment",
+  },
+],
 });
+
 const Business = mongoose.model("business", businessModel);
 export default Business;

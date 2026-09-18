@@ -13,7 +13,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getOneBusiness } from "../apis/business";
 
-const VenderDetail = () => {
+const BusinessDetail = () => {
   const { uniqName } = useParams();
   const [business, setBusiness] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -22,10 +22,9 @@ const VenderDetail = () => {
       try {
         setLoading(true);
         const data = await getOneBusiness(uniqName);
-        console.log(data);
         setBusiness(data);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       } finally {
         setLoading(false);
       }
@@ -47,25 +46,45 @@ const VenderDetail = () => {
       <div className="profile px-4">
         <div className="head flex w-full py-3 gap-3">
           <div className="job-logo">
-            <img src="/public/profile.jpg" className="rounded-full size-18" />
+            <img
+              src={`http://localhost:5000${business.logo}`}
+              className="rounded-full size-18"
+            />
           </div>
           <div className="detail flex flex-col justify-around">
             <div className="job-title font-bold text-xl">{business.title}</div>
-            <div className="job-descreption text-md">
+            <div className="job-description text-md">
               {business.description}
             </div>
           </div>
         </div>
 
-        <div className="varifayed flex gap-1 p-1 px-2 rounded-2xl bg-brand-200 w-fit">
+        <div className="varifayed flex gap-1 p-1 px-2 mb-2 rounded-2xl bg-brand-200 w-fit">
           <Check /> دارای تأیید پایه از همینجا
         </div>
         <div className="more-detail">
-          <div className="flex items-center gap-0.5 text-text-muted">
-            <Star className="size-5" />
-            <span>بدون نظر</span> <CircleIcon className="size-5" />
-            <span className="status">بسته</span>
-            <span>تا 08:00 </span>
+          <div className="flex gap-2 text-text-muted">
+            {
+              <div className="flex gap-0.5">
+                <div className="relative w-5 h-5">
+                  <Star className="absolute right-0 w-5 h-5 text-yellow-400" />
+                  <div
+                    className="absolute inset-y-0 right-0 overflow-hidden"
+                    style={{ width: `${business.rate * 10 * 2}%` }}
+                  >
+                    <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                  </div>
+                </div>
+                <div className="flex items-center justify-center h-fit">
+                  {business.rate}
+                </div>
+              </div>
+            }
+            <div className="flex items-center gap-0.5">
+              <CircleIcon className="size-5" />
+              <span className="status">بسته</span>
+              <span>تا 08:00 </span>
+            </div>
           </div>
         </div>
       </div>
@@ -79,7 +98,8 @@ const VenderDetail = () => {
       <DividerTitle title="توضیحات" />
       <ReadMore text={business.description} limitLines={5} />
       <DividerTitle title="نظرات" />
-      <ReviewsSection />
+      {/* {business._id} */}
+      <ReviewsSection businessId={business._id} comments={business.comments} />
       <Footer />
       <StickyNav
         phone={business.phone}
@@ -90,4 +110,4 @@ const VenderDetail = () => {
   );
 };
 
-export default VenderDetail;
+export default BusinessDetail;

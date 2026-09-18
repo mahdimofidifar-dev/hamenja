@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import Home from "./pages/Home";
 import Listing from "./pages/Listing";
-import VenderDetail from "./pages/BusinessesDetail";
+import BusinessDetail from "./pages/BusinessesDetail";
 import Auth from "./pages/Login";
 import UserDashboard from "./pages/UserDashboard";
 import AddBusiness from "./pages/AddBusiness";
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "lists", element: <Listing /> },
-      { path: "lists/:uniqName", element: <VenderDetail /> },
+      { path: "lists/:uniqName", element: <BusinessDetail /> },
       { path: "auth", element: <Auth /> },
       { path: "profile", element: <UserDashboard /> },
       { path: "profile/businesses", element: <UserBusinesses /> },
