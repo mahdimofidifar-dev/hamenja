@@ -25,7 +25,7 @@ export function AuthProvider({ children }) {
 
         setUser(response.data.user);
       } catch (error) {
-        console.log(
+        console.error(
           "AUTH RESTORE ERROR:",
           error.response?.data || error.message,
         );

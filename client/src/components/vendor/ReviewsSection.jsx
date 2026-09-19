@@ -22,10 +22,8 @@ export default function ReviewsSection({ businessId, comments }) {
         userId: user._id,
         businessId,
       };
-      console.log(commentData);
 
-      let a = await sendComment(commentData);
-      console.log(a);
+      await sendComment(commentData);
 
       setNewComment("");
       setUserRating(0);
@@ -33,8 +31,6 @@ export default function ReviewsSection({ businessId, comments }) {
     } catch (error) {
       console.error(error);
     } finally {
-      console.log("befor finaly");
-
       setIsSubmitting(false);
     }
   };

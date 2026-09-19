@@ -26,7 +26,6 @@ const Listing = () => {
     };
     fetchData();
   }, [loading]);
-  console.log(business);
 
   return (
     <div className="flex flex-col gap-3">

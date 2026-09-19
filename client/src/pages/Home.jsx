@@ -4,25 +4,12 @@ import CategoryBox from "@/components/vendor/CategoryBox";
 import SearchBox from "@/components/forms/SearchBox";
 import { Coffee, Scissors, SquareOff } from "lucide-react";
 // import { CarouselY } from "@/components/ui/CarouselY";
-import { getUsers } from "../apis/users.js";
-import { useEffect, useState } from "react";
-import TestUpload from "@/components/common/ImageUploader.jsx";
-// import  from "@/components/common/ImageUploader.jsx";
 
 export default function Home() {
-  const [user, setUser] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getUsers();
-      setUser(data);
-    };
-    fetchData();
-  }, []);
 
   return (
     <div className="">
       <Header />
-      <TestUpload />
       <div className="">
         <div className="w-full h-56 rounded-lg bg-brand-500 p-3 py-9 flex flex-col gap-2">
           <h1 className="text-2xl text-white">همینجا!؟</h1>
@@ -31,10 +18,6 @@ export default function Home() {
           </div>
           <SearchBox />
         </div>
-        {/* <div className="">{user}</div> */}
-        {/* {user.map((item) => {
-          <div className="">{item}</div>;
-        })} */}
         {/* <div className="">
           <CarouselY className="w-full h-20" img={img} col="2" />
           <div class="w-72 h-48 overflow-hidden rounded-xl">

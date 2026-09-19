@@ -20,8 +20,6 @@ const STEPS = [
 
 export default function AddBusinessForm() {
   const { user } = useAuth();
-  console.log(user._id);
-
   const [currentStep, setCurrentStep] = useState(1);
   // const [formData, setFormData] = useState({
   //   uniqName: "gamenet",
@@ -141,7 +139,7 @@ export default function AddBusinessForm() {
 
       navigation.back();
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       alert(error.response?.data?.message || "خطا در ساخت کسب و کار");
     }

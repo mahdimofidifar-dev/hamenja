@@ -59,7 +59,7 @@ const BusinessDetail = () => {
           </div>
         </div>
 
-        <div className="varifayed flex gap-1 p-1 px-2 mb-2 rounded-2xl bg-brand-200 w-fit">
+        <div className="verified flex gap-1 p-1 px-2 mb-2 rounded-2xl bg-brand-200 w-fit">
           <Check /> دارای تأیید پایه از همینجا
         </div>
         <div className="more-detail">
@@ -98,7 +98,6 @@ const BusinessDetail = () => {
       <DividerTitle title="توضیحات" />
       <ReadMore text={business.description} limitLines={5} />
       <DividerTitle title="نظرات" />
-      {/* {business._id} */}
       <ReviewsSection businessId={business._id} comments={business.comments} />
       <Footer />
       <StickyNav

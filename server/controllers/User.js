@@ -106,8 +106,11 @@ export const checkOtp = async (req, res) => {
 };
 export const signIn = async (req, res) => {
   try {
-    const { name, lastName, phone } = req.body;
-
+    const { name, lastName, phone, otpCode } = req.body;
+    const otpUser = await OTP.findOne({ phone });
+    if (!otpCode === otpUser) {
+      res.status(402).json({ message: "کد تایید اشتباه است" });
+    }
     const user = await User.create({ name, lastName, phone });
     const accessToken = generateAccessToken({
       userId: user._id,
@@ -179,20 +182,21 @@ export const logout = async (req, res) => {
 };
 export const auth = async (req, res) => {
   const { phone, optCode } = req.body;
+
   let isLogin = false;
+  const otpUser = await OTP.findOne({ phone });
+
   const findUser = await User.findOne({ phone });
-  if (!findUser) {
+  if (!findUser && optCode === otpUser) {
     isLogin = false;
     await User.create({ phone });
-    console.log(optCode);
-
     res.json({ message: "user created successfully" });
   } else {
     isLogin = true;
   }
-  optCode === opt
+  optCode === otpUser
     ? res.status(201).json({ message: "login" })
-    : res.status(401).json({ message: "opt wrong" });
+    : res.status(401).json({ message: "otp wrong" });
 };
 export const getUsers = async (req, res) => {
   try {

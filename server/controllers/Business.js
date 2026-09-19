@@ -115,13 +115,11 @@ export const getOneBusiness = async (req, res) => {
   const comments = await Comment.find({ businessId: business._id })
     .select("userId rate comment")
     .populate("userId", "name lastName , avatar");
-    
-    
+
   const data = {
     ...business.toObject(),
     comments,
   };
-  // console.log(data);
   res.json(data);
 };
 

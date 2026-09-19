@@ -13,145 +13,11 @@ import {
   CalendarClock,
   Trash2,
 } from "lucide-react";
-
+import { getAllBusiness } from "@/apis/business";
+import { Link } from "react-router-dom";
 /* =========================================================================
    داده‌های نمونه (Mock Data) — پلتفرم رزرو خدمات و نوبت‌دهی
    ========================================================================= */
-
-const VENDORS = [
-  {
-    id: "v1",
-    type: "vendor",
-    name: "سالن زیبایی آرا",
-    category: "آرایشگاه و زیبایی",
-    city: "تهران - سعادت‌آباد",
-    rating: 4.9,
-    reviews: 312,
-    nextSlot: "امروز، ساعت ۱۷:۳۰",
-    badge: "پرطرفدار",
-  },
-  {
-    id: "v2",
-    type: "vendor",
-    name: "کلینیک دندانپزشکی دکتر لبخند",
-    category: "پزشکی و سلامت",
-    city: "تهران - ونک",
-    rating: 4.8,
-    reviews: 501,
-    nextSlot: "فردا، ساعت ۱۰:۰۰",
-    badge: "تأیید شده",
-  },
-  {
-    id: "v3",
-    type: "vendor",
-    name: "مجموعه ورزشی اکسیژن",
-    category: "ورزش و تناسب اندام",
-    city: "تهران - نیاوران",
-    rating: 4.6,
-    reviews: 189,
-    nextSlot: "امروز، ساعت ۲۰:۰۰",
-    badge: null,
-  },
-  {
-    id: "v4",
-    type: "vendor",
-    name: "کارواش نانو مدرن",
-    category: "خودرو",
-    city: "تهران - پونک",
-    rating: 4.5,
-    reviews: 97,
-    nextSlot: "امروز، ساعت ۱۴:۱۵",
-    badge: "۲۰٪ تخفیف",
-  },
-  {
-    id: "v5",
-    type: "vendor",
-    name: "آتلیه عکاسی رخ",
-    category: "عکاسی و فیلمبرداری",
-    city: "اصفهان - چهارباغ",
-    rating: 4.9,
-    reviews: 224,
-    nextSlot: "پنجشنبه، ساعت ۱۱:۰۰",
-    badge: "پرطرفدار",
-  },
-  {
-    id: "v6",
-    type: "vendor",
-    name: "کلینیک فیزیوتراپی بهارستان",
-    category: "پزشکی و سلامت",
-    city: "شیراز - معالی‌آباد",
-    rating: 4.7,
-    reviews: 143,
-    nextSlot: "فردا، ساعت ۰۹:۳۰",
-    badge: null,
-  },
-  {
-    id: "v7",
-    type: "vendor",
-    name: "سالن زیبایی ملورین",
-    category: "آرایشگاه و زیبایی",
-    city: "اصفهان - چهارباغ",
-    rating: 4.4,
-    reviews: 76,
-    nextSlot: "امروز، ساعت ۱۹:۰۰",
-    badge: "۱۵٪ تخفیف",
-  },
-  {
-    id: "v8",
-    type: "vendor",
-    name: "باشگاه بدنسازی تیتان",
-    category: "ورزش و تناسب اندام",
-    city: "تهران - سعادت‌آباد",
-    rating: 4.3,
-    reviews: 210,
-    nextSlot: "امروز، ساعت ۱۸:۴۵",
-    badge: null,
-  },
-  {
-    id: "v9",
-    type: "vendor",
-    name: "کلینیک زیبایی پوست‌آرا",
-    category: "پزشکی و سلامت",
-    city: "تهران - ونک",
-    rating: 4.9,
-    reviews: 388,
-    nextSlot: "شنبه، ساعت ۱۶:۰۰",
-    badge: "تأیید شده",
-  },
-  {
-    id: "v10",
-    type: "vendor",
-    name: "مرکز خدمات خودرو پرشین",
-    category: "خودرو",
-    city: "شیراز - معالی‌آباد",
-    rating: 4.2,
-    reviews: 58,
-    nextSlot: "فردا، ساعت ۱۳:۰۰",
-    badge: null,
-  },
-  {
-    id: "v11",
-    type: "vendor",
-    name: "استودیو یوگا آرام",
-    category: "ورزش و تناسب اندام",
-    city: "تهران - نیاوران",
-    rating: 4.8,
-    reviews: 132,
-    nextSlot: "امروز، ساعت ۰۸:۰۰",
-    badge: "پرطرفدار",
-  },
-  {
-    id: "v12",
-    type: "vendor",
-    name: "آرایشگاه مردانه سزار",
-    category: "آرایشگاه و زیبایی",
-    city: "تهران - پونک",
-    rating: 4.6,
-    reviews: 165,
-    nextSlot: "امروز، ساعت ۲۱:۰۰",
-    badge: null,
-  },
-];
 
 const CATEGORIES = [
   { id: "c1", type: "category", name: "آرایشگاه و زیبایی", count: 128 },
@@ -208,32 +74,20 @@ export default function SearchBox({
   const [query, setQuery] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
   const [recent, setRecent] = useState(DEFAULT_RECENT);
-  const [isDesktop, setIsDesktop] = useState(true);
-
+  const [businesses, setBusinesses] = useState([]);
+  const [loading, setLoading] = useState(true);
   const inputRef = useRef(null);
   const listRef = useRef(null);
   const itemRefs = useRef({});
 
-  /* ---- تشخیص پلتفرم برای نمایش میانبر مناسب ---- */
   useEffect(() => {
-    if (typeof navigator !== "undefined") {
-      setIsDesktop(!/Mac|iPod|iPhone|iPad/.test(navigator.platform || ""));
-    }
+    const fetchData = async () => {
+      const data = await getAllBusiness();
+      setBusinesses(data);
+      setLoading(false);
+    };
+    fetchData();
   }, []);
-  useEffect(() => {
-    function handleGlobalKeyDown(e) {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
-        e.preventDefault();
-        setOpen((prev) => !prev);
-      }
-      if (e.key === "Escape") {
-        setOpen(false);
-      }
-    }
-    window.addEventListener("keydown", handleGlobalKeyDown);
-    return () => window.removeEventListener("keydown", handleGlobalKeyDown);
-  }, []);
-
   /* ---- فوکوس خودکار روی اینپوت هنگام باز شدن ---- */
   useEffect(() => {
     if (open) {
@@ -245,26 +99,34 @@ export default function SearchBox({
   }, [open]);
 
   /* ---- فیلتر کردن نتایج ---- */
-  const filteredVendors = useMemo(() => {
+  const filteredBusinesses = useMemo(() => {
     if (!query.trim()) return [];
-    return VENDORS.filter((v) =>
-      matches(query, v.name, v.category, v.city),
-    ).slice(0, 6);
+    return businesses
+      .filter((business) =>
+        matches(query, business.title, business.category, business.city),
+      )
+      .slice(0, 3);
   }, [query]);
 
   const filteredCategories = useMemo(() => {
     if (!query.trim()) return [];
-    return CATEGORIES.filter((c) => matches(query, c.name)).slice(0, 4);
+    return CATEGORIES.filter((category) => matches(query, category.name)).slice(
+      0,
+      4,
+    );
   }, [query]);
 
   const filteredLocations = useMemo(() => {
     if (!query.trim()) return [];
-    return LOCATIONS.filter((l) => matches(query, l.name)).slice(0, 4);
+    return LOCATIONS.filter((location) => matches(query, location.name)).slice(
+      0,
+      4,
+    );
   }, [query]);
 
   const hasQuery = query.trim().length > 0;
   const hasResults =
-    filteredVendors.length > 0 ||
+    filteredBusinesses.length > 0 ||
     filteredCategories.length > 0 ||
     filteredLocations.length > 0;
 
@@ -274,14 +136,17 @@ export default function SearchBox({
       return recent.map((r) => ({ kind: "recent", ...r }));
     }
     return [
-      ...filteredVendors.map((v) => ({ kind: "vendor", ...v })),
-      ...filteredCategories.map((c) => ({ kind: "category", ...c })),
+      ...filteredBusinesses.map((v) => ({ kind: "vendor", ...v })),
+      ...filteredCategories.map((category) => ({
+        kind: "category",
+        ...category,
+      })),
       ...filteredLocations.map((l) => ({ kind: "location", ...l })),
     ];
   }, [
     hasQuery,
     recent,
-    filteredVendors,
+    filteredBusinesses,
     filteredCategories,
     filteredLocations,
   ]);
@@ -303,8 +168,8 @@ export default function SearchBox({
         item.kind === "recent"
           ? item.label
           : item.kind === "vendor"
-            ? item.name
-            : item.name;
+            ? item.title
+            : item.title;
 
       setRecent((prev) => {
         const withoutDup = prev.filter((r) => r.label !== label);
@@ -483,16 +348,17 @@ export default function SearchBox({
               {/* حالت با کوئری و نتیجه: گروه‌بندی شده */}
               {hasQuery && hasResults && (
                 <div className="flex flex-col gap-1">
-                  {filteredVendors.length > 0 && (
+                  {filteredBusinesses.length > 0 && (
                     <ResultGroup
                       icon={<Building2 className="h-3.5 w-3.5" />}
                       title="کسب‌وکارها و مراکز"
                     >
-                      {filteredVendors.map((v) => {
+                      {filteredBusinesses.map((v) => {
                         runningIndex += 1;
                         const isActive = runningIndex === activeIndex;
                         return (
                           <VendorRow
+                            url={v.uniqName}
                             key={v.id}
                             itemRef={(el) =>
                               (itemRefs.current[runningIndex] = el)
@@ -509,7 +375,7 @@ export default function SearchBox({
                     </ResultGroup>
                   )}
 
-                  {filteredCategories.length > 0 && (
+                  {/* {filteredCategories.length > 0 && (
                     <ResultGroup
                       icon={<Tag className="h-3.5 w-3.5" />}
                       title="دسته‌بندی خدمات"
@@ -537,9 +403,9 @@ export default function SearchBox({
                         );
                       })}
                     </ResultGroup>
-                  )}
+                  )} */}
 
-                  {filteredLocations.length > 0 && (
+                  {/* {filteredLocations.length > 0 && (
                     <ResultGroup
                       icon={<MapPin className="h-3.5 w-3.5" />}
                       title="شهرها / مناطق"
@@ -567,7 +433,7 @@ export default function SearchBox({
                         );
                       })}
                     </ResultGroup>
-                  )}
+                  )} */}
                 </div>
               )}
             </div>
@@ -657,9 +523,10 @@ function SimpleRow({
   );
 }
 
-function VendorRow({ itemRef, vendor, isActive, onHover, onClick }) {
+function VendorRow({ itemRef, vendor, isActive, onHover, onClick, url }) {
   return (
-    <div
+    <Link
+      to={url}
       ref={itemRef}
       onMouseEnter={onHover}
       onClick={onClick}
@@ -676,7 +543,7 @@ function VendorRow({ itemRef, vendor, isActive, onHover, onClick }) {
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         <div className="flex items-center gap-1.5">
           <span className="truncate font-medium text-slate-700 dark:text-slate-200">
-            {vendor.name}
+            {vendor.title}
           </span>
           {vendor.badge && (
             <span className="shrink-0 rounded-full bg-amber-50 px-1.5 py-0.5 text-[10px] font-medium text-amber-600 dark:bg-amber-500/10 dark:text-amber-400">
@@ -687,10 +554,7 @@ function VendorRow({ itemRef, vendor, isActive, onHover, onClick }) {
         <div className="flex flex-wrap items-center gap-x-2.5 gap-y-0.5 text-[11px] text-slate-400 dark:text-slate-500">
           <span className="flex items-center gap-1">
             <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
-            {vendor.rating.toLocaleString("fa-IR")}
-            <span className="text-slate-300 dark:text-slate-600">
-              ({vendor.reviews.toLocaleString("fa-IR")})
-            </span>
+            {vendor.rate.toLocaleString("fa-IR")}
           </span>
           <span className="flex items-center gap-1">
             <MapPin className="h-3 w-3" />
@@ -706,6 +570,6 @@ function VendorRow({ itemRef, vendor, isActive, onHover, onClick }) {
       {isActive && (
         <ArrowUpLeft className="h-3.5 w-3.5 shrink-0 text-slate-300" />
       )}
-    </div>
+    </Link>
   );
 }

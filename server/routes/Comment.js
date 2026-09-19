@@ -6,7 +6,5 @@ const commentRouter = e.Router();
 commentRouter
   .route("/")
   .post(authenticate, addComment)
-  .get(async (req, res) => {
-    console.log("test");
-  });
+  .get(async (req, res) => {});
 export default commentRouter;
