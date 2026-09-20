@@ -7,6 +7,11 @@ import { useEffect, useState } from "react";
 import { addCategories, getAllCategories } from "@/apis/category";
 // import { CarouselY } from "@/components/ui/CarouselY";
 export default function Home() {
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const now = new Date();
+
+  console.log(now);
+  console.log(timeZone);
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     const fetchData = async () => {

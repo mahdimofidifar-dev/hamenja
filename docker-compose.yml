@@ -39,6 +39,7 @@ services:
   database:
     image: mongo:latest
     container_name: database
+    command: [ "mongod", "--auth", "--bind_ip_all" ]
     restart: always
     ports:
       - "27017:27017"
