@@ -1,5 +1,5 @@
 import BreadCrump from "../components/common/BreadCrump";
-import { Star, CircleIcon, Check } from "lucide-react";
+import { Star, CircleIcon, Check, CircleDot } from "lucide-react";
 import Carousel from "@/components/common/Carousel";
 import AddressBox from "@/components/vendor/AddressBox";
 import DividerTitle from "@/components/common/DividerTItle";
@@ -12,10 +12,13 @@ import Header from "@/components/layout/Header";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getOneBusiness } from "../apis/business";
+import { toPersianDigits, openInfo } from "@/utils/businessTime";
 
 const BusinessDetail = () => {
   const { uniqName } = useParams();
   const [business, setBusiness] = useState([]);
+  console.log(business);
+
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
@@ -38,6 +41,7 @@ const BusinessDetail = () => {
       </div>
     );
   }
+  openInfo(business);
 
   return (
     <div className="bg-bg-light ">
@@ -81,9 +85,21 @@ const BusinessDetail = () => {
               </div>
             }
             <div className="flex items-center gap-0.5">
-              <CircleIcon className="size-5" />
-              <span className="status">بسته</span>
-              <span>تا 08:00 </span>
+              {openInfo === true ? (
+                <div className="flex gap-1 items-center">
+                  <CircleDot className="size-5 text-green-500 fill-green-200 " />
+                  <span>باز است</span>
+                </div>
+              ) : (
+                <div className=" flex gap-1 items-center">
+                  <CircleIcon className="size-5 text-red-500 fill-red-200" />
+                  <span>
+                    بسته تا {toPersianDigits(business.openTime)}
+                  </span>
+                </div>
+              )}
+              {/* <span className="status">بسته</span>
+              <span>تا 08:00 </span> */}
             </div>
           </div>
         </div>

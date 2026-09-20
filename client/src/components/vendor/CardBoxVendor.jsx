@@ -3,8 +3,11 @@ import PhoneDialog from "@/components/forms/PhoneDialog";
 import { MapPin, MoreHorizontal, Phone, Star, CircleIcon } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { toPersianDigits, openInfo } from "@/utils/businessTime";
 
 const CardBox = ({ props, loading }) => {
+  openInfo(props);
+
   return (
     <div className="box flex flex-col rounded-xl border gap-2 p-3">
       <div className="name text-2xl">{props.title}</div>
@@ -28,11 +31,19 @@ const CardBox = ({ props, loading }) => {
             </div>
           </div>
         }
-        <div className="flex items-center gap-0.5">
-          <CircleIcon className="size-5" />
-          <span className="status">بسته</span>
-          <span>تا 08:00 </span>
-        </div>
+        {openInfo === true ? (
+          <div className="flex gap-1 items-center">
+            <CircleDot className="size-5 text-green-500 fill-green-200 " />
+            <span>باز است</span>
+          </div>
+        ) : (
+          <div className=" flex gap-1 items-center">
+            <CircleIcon className="size-5 text-red-500 fill-red-200" />
+            <span>
+              بسته تا {toPersianDigits(props.openTime)}
+            </span>
+          </div>
+        )}
       </div>
       <div className="flex items-center text-slate-500">
         <MapPin />

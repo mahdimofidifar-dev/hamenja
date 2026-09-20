@@ -6,9 +6,11 @@ import { deleteBusiness } from "@/apis/business";
 
 export const UserBusinesses = () => {
   const { user, loading } = useAuth();
+  console.log(user);
   if (loading) {
     return <>...</>;
   } else {
+
     const businesses = user.business || [];
 
     if (!businesses.length) {
