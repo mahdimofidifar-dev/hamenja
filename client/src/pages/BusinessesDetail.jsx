@@ -47,7 +47,7 @@ const BusinessDetail = () => {
         <div className="head flex w-full py-3 gap-3">
           <div className="job-logo">
             <img
-              src={`http://localhost:5000${business.logo}`}
+              src={`${import.meta.env.VITE_API_URL}${business.logo}`}
               className="rounded-full size-18"
             />
           </div>
