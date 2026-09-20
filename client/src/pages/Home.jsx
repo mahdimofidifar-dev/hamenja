@@ -3,10 +3,18 @@ import Footer from "@/components/layout/Footer";
 import CategoryBox from "@/components/vendor/CategoryBox";
 import SearchBox from "@/components/forms/SearchBox";
 import { Coffee, Scissors, SquareOff } from "lucide-react";
+import { useEffect, useState } from "react";
+import { addCategories, getAllCategories } from "@/apis/category";
 // import { CarouselY } from "@/components/ui/CarouselY";
-
 export default function Home() {
-
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getAllCategories();
+      setCategories(data);
+    };
+    fetchData();
+  }, []);
   return (
     <div className="">
       <Header />
@@ -31,14 +39,16 @@ export default function Home() {
         <div className="w-full flex flex-col p-3 gap-3">
           <h3 className="text-2xl">دسته بندی های محبوب</h3>
           <div className="flex flex-wrap gap-3 items-center justify-center">
-            <CategoryBox
-              icon={<Coffee className="size-8" />}
-              title="کافی شاپ"
-            />
-            <CategoryBox
-              icon={<Scissors className="size-8" />}
-              title="آرایشگاه"
-            />
+            {categories.map((category) => {
+              return (
+                <CategoryBox
+                  key={categories._id}
+                  url={category.uniqName}
+                  icon={<SquareOff className="size-8" />}
+                  title={category.title}
+                />
+              );
+            })}
           </div>
         </div>
       </div>

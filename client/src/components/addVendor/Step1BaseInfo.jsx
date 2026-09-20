@@ -1,5 +1,3 @@
-"use client";
-
 import { Field, FieldLabel, FieldDescription } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -35,10 +33,12 @@ export function Step1BaseInfo({ formData, setFormData }) {
       <Field>
         <FieldLabel>دسته‌بندی و حوزه فعالیت *</FieldLabel>
         <CategorySelector
-          value={formData.categories}
-          onChange={(newCategories) =>
-            setFormData({ ...formData, categories: newCategories })
-          }
+          value={formData.category}
+          onChange={(newCategories) => {
+            console.log(newCategories);
+
+            setFormData({ ...formData, category: newCategories });
+          }}
         />
       </Field>
 

@@ -50,7 +50,7 @@ const CardBox = ({ props, loading }) => {
           }
         />
         <Link
-          to={`/${props.uniqName}`}
+          to={`/businesses/${props.uniqName}`}
           className="flex h-12 w-36 justify-center text-md items-center border rounded-md gap-2"
         >
           <MoreHorizontal className="size-4.5" />

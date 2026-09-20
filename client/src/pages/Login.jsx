@@ -23,10 +23,6 @@ export default function Auth() {
   const [lastName, setLastName] = useState();
   const { login } = useAuth();
 
-  // -------------------------
-  // Request OTP
-  // -------------------------
-
   const handlePhoneSubmit = async (e) => {
     e.preventDefault();
 
@@ -46,10 +42,6 @@ export default function Auth() {
     }
   };
 
-  // -------------------------
-  // OTP Input
-  // -------------------------
-
   const handleOtpChange = (value) => {
     setOtp(value);
   };
@@ -68,9 +60,6 @@ export default function Auth() {
       return navigate(-1);
     }
   };
-  // -------------------------
-  // Verify OTP
-  // -------------------------
 
   useEffect(() => {
     if (otp.length !== 4) return;
@@ -104,7 +93,6 @@ export default function Auth() {
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 dir-rtl">
       <div className="max-w-md w-full bg-white rounded-2xl shadow-xl border border-slate-100 p-8">
-        {/* Header */}
 
         <div className="text-center mb-8">
           <div className="w-16 h-16 bg-blue-50 text-brand-600 rounded-full flex items-center justify-center mx-auto mb-4">

@@ -4,18 +4,23 @@ import {
   Outlet,
   ScrollRestoration,
 } from "react-router-dom";
-import Home from "./pages/Home";
-import Listing from "./pages/Listing";
-import BusinessDetail from "./pages/BusinessesDetail";
-import Auth from "./pages/Login";
-import UserDashboard from "./pages/UserDashboard";
-import AddBusiness from "./pages/AddBusiness";
-import { UserBusinesses } from "./pages/UserBusinesses";
+import { lazy, Suspense } from "react";
+
+const Home = lazy(() => import("./pages/Home"));
+const Listing = lazy(() => import("./pages/Listing"));
+const BusinessDetail = lazy(() => import("./pages/BusinessesDetail"));
+const Auth = lazy(() => import("./pages/Login"));
+const UserDashboard = lazy(() => import("./pages/UserDashboard"));
+const AddBusiness = lazy(() => import("./pages/AddBusiness"));
+const UserBusinesses = lazy(() => import("./pages/UserBusinesses"));
 
 const RootLayout = () => {
   return (
     <>
-      <Outlet />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
+
       <ScrollRestoration />
     </>
   );
@@ -26,13 +31,40 @@ const router = createBrowserRouter([
     path: "/",
     element: <RootLayout />,
     children: [
-      { index: true, element: <Home /> },
-      { path: "lists", element: <Listing /> },
-      { path: ":uniqName", element: <BusinessDetail /> },
-      { path: "auth", element: <Auth /> },
-      { path: "profile", element: <UserDashboard /> },
-      { path: "profile/businesses", element: <UserBusinesses /> },
-      { path: "add-business", element: <AddBusiness /> },
+      {
+        index: true,
+        element: <Home />,
+      },
+
+      {
+        path: ":category",
+        element: <Listing />,
+      },
+
+      {
+        path: "businesses/:uniqName",
+        element: <BusinessDetail />,
+      },
+
+      {
+        path: "auth",
+        element: <Auth />,
+      },
+
+      {
+        path: "profile",
+        element: <UserDashboard />,
+      },
+
+      {
+        path: "profile/businesses",
+        element: <UserBusinesses />,
+      },
+
+      {
+        path: "add-business",
+        element: <AddBusiness />,
+      },
     ],
   },
 ]);

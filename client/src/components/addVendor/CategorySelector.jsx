@@ -1,74 +1,132 @@
-"use client";
+import { useEffect, useState } from "react";
 
-import { useState } from "react";
 import { Check, ChevronsUpDown, X } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 
-export const CATEGORIES_DATA = [
-  { id: "entertainment", label: "تفریحی و سرگرمی", type: "main" },
-  { id: "gamenet", label: "گیم‌نت", type: "sub", parentLabel: "تفریحی و سرگرمی" },
-  { id: "escaperoom", label: "اتاق فرار", type: "sub", parentLabel: "تفریحی و سرگرمی" },
-  { id: "ps5", label: "کلوپ بازی / PS5", type: "sub", parentLabel: "تفریحی و سرگرمی" },
-  { id: "cafe", label: "کافه و رستوران", type: "main" },
-  { id: "boardgame", label: "بردگیم کافه", type: "sub", parentLabel: "کافه و رستوران" },
-];
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+
+import { getAllCategories } from "@/apis/category";
 
 export function CategorySelector({ value = [], onChange }) {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [categories, setCategories] = useState([]);
 
-  const toggleCategory = (id) => {
-    const isSelected = value.includes(id);
+  const toggleCategory = (uniqName) => {
+    const isSelected = value.includes(uniqName);
+
     const newCategories = isSelected
-      ? value.filter((catId) => catId !== id)
-      : [...value, id];
+      ? value.filter((cat) => cat !== uniqName)
+      : [...value, uniqName];
+
     onChange(newCategories);
   };
 
-  const removeCategory = (e, id) => {
+  useEffect(() => {
+    const getCategories = async () => {
+      const data = await getAllCategories();
+
+      setCategories(data);
+      setLoading(false);
+    };
+
+    getCategories();
+  }, []);
+
+  const removeCategory = (e, uniqName) => {
     e.stopPropagation();
-    onChange(value.filter((catId) => catId !== id));
+
+    onChange(value.filter((cat) => cat !== uniqName));
   };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <button type="button" className="w-full flex items-center justify-between min-h-[44px] p-2 border rounded-lg text-sm bg-white gap-2 flex-wrap text-right">
+        <button
+          type="button"
+          className="w-full flex items-center justify-between min-h-11 p-2 border rounded-lg text-sm bg-white gap-2 flex-wrap text-right"
+        >
           <div className="flex flex-wrap gap-1.5 items-center">
             {value.length > 0 ? (
-              value.map((id) => {
-                const item = CATEGORIES_DATA.find((c) => c.id === id);
+              value.map((uniqName) => {
+                const item = categories.find(
+                  (category) => category.uniqName === uniqName,
+                );
+
                 if (!item) return null;
+
                 return (
-                  <span key={id} className="inline-flex items-center gap-1 bg-indigo-50 text-indigo-700 border border-indigo-200 text-xs px-2 py-1 rounded-md font-medium">
-                    {item.label}
-                    <X className="w-3 h-3 cursor-pointer hover:text-red-500" onClick={(e) => removeCategory(e, id)} />
+                  <span
+                    key={uniqName}
+                    className="inline-flex items-center gap-1 bg-indigo-50 text-indigo-700 border border-indigo-200 text-xs px-2 py-1 rounded-md font-medium"
+                  >
+                    {item.title}
+
+                    <X
+                      className="w-3 h-3 cursor-pointer hover:text-red-500"
+                      onClick={(e) => removeCategory(e, uniqName)}
+                    />
                   </span>
                 );
               })
             ) : (
-              <span className="text-gray-400 p-1">جستجو یا انتخاب دسته‌بندی‌ها...</span>
+              <span className="text-gray-400 p-1">
+                جستجو یا انتخاب دسته‌بندی‌ها...
+              </span>
             )}
           </div>
+
           <ChevronsUpDown className="w-4 h-4 text-gray-400 shrink-0 mr-auto" />
         </button>
       </PopoverTrigger>
+
       <PopoverContent className="w-full p-0" align="start">
         <Command>
           <CommandInput placeholder="مثلاً: گیم‌نت، تفریحی..." />
+
           <CommandList>
             <CommandEmpty>دسته‌بندی پیدا نشد.</CommandEmpty>
+
             <CommandGroup heading="دسته‌بندی‌ها">
-              {CATEGORIES_DATA.map((item) => {
-                const isSelected = value.includes(item.id);
+              {categories.map((item) => {
+                const isSelected = value.includes(item.uniqName);
+
                 return (
-                  <CommandItem key={item.id} onSelect={() => toggleCategory(item.id)} className="flex items-center justify-between cursor-pointer">
+                  <CommandItem
+                    key={item._id}
+                    onSelect={() => toggleCategory(item.uniqName)}
+                    className="flex items-center justify-between cursor-pointer"
+                  >
                     <div className="flex items-center gap-2">
-                      <div className={`w-4 h-4 rounded border flex items-center justify-center ${isSelected ? "bg-indigo-600 border-indigo-600 text-white" : "border-gray-300"}`}>
+                      <div
+                        className={`w-4 h-4 rounded border flex items-center justify-center ${
+                          isSelected
+                            ? "bg-indigo-600 border-indigo-600 text-white"
+                            : "border-gray-300"
+                        }`}
+                      >
                         {isSelected && <Check className="w-3 h-3" />}
                       </div>
-                      <span className="font-medium">{item.label}</span>
-                      {item.parentLabel && <span className="text-xs text-gray-400">({item.parentLabel})</span>}
+
+                      <span className="font-medium">{item.title}</span>
+
+                      {item.parentLabel && (
+                        <span className="text-xs text-gray-400">
+                          ({item.parentLabel})
+                        </span>
+                      )}
                     </div>
                   </CommandItem>
                 );

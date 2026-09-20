@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function CategoryBox({ url = "/lists", icon, title = "test" }) {
+export default function CategoryBox({ url, icon, title }) {
   return (
     <Link
       to={url}

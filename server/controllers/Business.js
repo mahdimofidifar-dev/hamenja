@@ -23,10 +23,10 @@ export const addBusiness = async (req, res) => {
       uniqName,
     } = req.body;
 
-    const categories = Array.isArray(req.body.categories)
-      ? req.body.categories
-      : req.body.categories
-        ? [req.body.categories]
+    const category = Array.isArray(req.body.category)
+      ? req.body.category
+      : req.body.category
+        ? [req.body.category]
         : [];
 
     const amenities = Array.isArray(req.body.amenities)
@@ -55,10 +55,11 @@ export const addBusiness = async (req, res) => {
       req.files?.gallery?.map(
         (file) => `/uploads/businesses/${file.filename}`,
       ) || [];
+    console.log(category);
 
     const business = await Business.create({
       title,
-      categories,
+      category,
       description,
       mobile,
       phone,
@@ -122,7 +123,12 @@ export const getOneBusiness = async (req, res) => {
   };
   res.json(data);
 };
+export const getBusinessOfCategory = async (req, res) => {
+  const { key } = req.params;
 
+  const data = await Business.find({ category: key });
+  res.json(data);
+};
 export const deleteBusiness = async (req, res) => {
   const { id } = req.params;
   await Business.findByIdAndDelete(id);

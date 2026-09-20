@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 const businessModel = new mongoose.Schema({
   title: { type: String },
-  category: {},
   description: {},
   mobile: { type: String },
   phone: { type: String },
@@ -30,11 +29,15 @@ const businessModel = new mongoose.Schema({
     required: true,
   },
   comments: [
-  {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "comment",
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "comment",
+    },
+  ],
+  category: {
+    type: [String],
+    default: [],
   },
-],
 });
 
 const Business = mongoose.model("business", businessModel);

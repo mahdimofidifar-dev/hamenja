@@ -15,17 +15,18 @@ import {
 } from "lucide-react";
 import { getAllBusiness } from "@/apis/business";
 import { Link } from "react-router-dom";
+import { getAllCategories } from "@/apis/category";
 /* =========================================================================
    داده‌های نمونه (Mock Data) — پلتفرم رزرو خدمات و نوبت‌دهی
    ========================================================================= */
 
-const CATEGORIES = [
-  { id: "c1", type: "category", name: "آرایشگاه و زیبایی", count: 128 },
-  { id: "c2", type: "category", name: "پزشکی و سلامت", count: 96 },
-  { id: "c3", type: "category", name: "ورزش و تناسب اندام", count: 74 },
-  { id: "c4", type: "category", name: "خودرو", count: 41 },
-  { id: "c5", type: "category", name: "عکاسی و فیلمبرداری", count: 23 },
-];
+// const categories = [
+//   { id: "c1", type: "category", name: "آرایشگاه و زیبایی", count: 128 },
+//   { id: "c2", type: "category", name: "پزشکی و سلامت", count: 96 },
+//   { id: "c3", type: "category", name: "ورزش و تناسب اندام", count: 74 },
+//   { id: "c4", type: "category", name: "خودرو", count: 41 },
+//   { id: "c5", type: "category", name: "عکاسی و فیلمبرداری", count: 23 },
+// ];
 
 const LOCATIONS = [
   { id: "l1", type: "location", name: "تهران - سعادت‌آباد", count: 214 },
@@ -36,36 +37,18 @@ const LOCATIONS = [
   { id: "l6", type: "location", name: "شیراز - معالی‌آباد", count: 63 },
 ];
 
-const DEFAULT_RECENT = [
-  { id: "r1", label: "کلینیک دندانپزشکی دکتر لبخند" },
-  { id: "r2", label: "آرایشگاه و زیبایی" },
-  { id: "r3", label: "تهران - سعادت‌آباد" },
-];
-
-/* =========================================================================
-   توابع کمکی
-   ========================================================================= */
-
-function normalize(str = "") {
-  return str
+function matches(query, ...fields) {
+  const q = query
     .replace(/[یي]/g, "ی")
     .replace(/[کك]/g, "ک")
     .replace(/\u200c/g, " ")
     .trim()
     .toLowerCase();
-}
-
-function matches(query, ...fields) {
-  const q = normalize(query);
   if (!q) return false;
-  return fields.some((f) => normalize(f).includes(q));
+  return fields.some((f) => f.includes(q));
 }
 
-/* =========================================================================
-   کامپوننت اصلی: PersianSearchBox
-   ========================================================================= */
-
-export default function SearchBox({
+function SearchBox({
   placeholder = "جستجوی کسب‌وکار، خدمت یا شهر…",
   onSelect,
   className,
@@ -73,8 +56,9 @@ export default function SearchBox({
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
-  const [recent, setRecent] = useState(DEFAULT_RECENT);
+  const [recent, setRecent] = useState([]);
   const [businesses, setBusinesses] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const inputRef = useRef(null);
   const listRef = useRef(null);
@@ -88,7 +72,16 @@ export default function SearchBox({
     };
     fetchData();
   }, []);
-  /* ---- فوکوس خودکار روی اینپوت هنگام باز شدن ---- */
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getAllCategories();
+      setCategories(data);
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+
+  // /* ---- فوکوس خودکار روی اینپوت هنگام باز شدن ---- */
   useEffect(() => {
     if (open) {
       const t = setTimeout(() => inputRef.current?.focus(), 60);
@@ -110,17 +103,16 @@ export default function SearchBox({
 
   const filteredCategories = useMemo(() => {
     if (!query.trim()) return [];
-    return CATEGORIES.filter((category) => matches(query, category.name)).slice(
-      0,
-      4,
-    );
+    return categories
+      .filter((category) => matches(query, category.title))
+      .slice(0, 3);
   }, [query]);
 
   const filteredLocations = useMemo(() => {
     if (!query.trim()) return [];
     return LOCATIONS.filter((location) => matches(query, location.name)).slice(
       0,
-      4,
+      3,
     );
   }, [query]);
 
@@ -358,8 +350,8 @@ export default function SearchBox({
                         const isActive = runningIndex === activeIndex;
                         return (
                           <VendorRow
-                            url={v.uniqName}
-                            key={v.id}
+                            url={`${v.uniqName}`}
+                            key={v._id}
                             itemRef={(el) =>
                               (itemRefs.current[runningIndex] = el)
                             }
@@ -375,7 +367,7 @@ export default function SearchBox({
                     </ResultGroup>
                   )}
 
-                  {/* {filteredCategories.length > 0 && (
+                  {filteredCategories.length > 0 && (
                     <ResultGroup
                       icon={<Tag className="h-3.5 w-3.5" />}
                       title="دسته‌بندی خدمات"
@@ -385,27 +377,28 @@ export default function SearchBox({
                         const isActive = runningIndex === activeIndex;
                         return (
                           <SimpleRow
-                            key={c.id}
+                            key={c._id}
                             itemRef={(el) =>
                               (itemRefs.current[runningIndex] = el)
                             }
                             icon={
                               <Sparkles className="h-4 w-4 text-violet-400" />
                             }
-                            title={c.name}
-                            subtitle={`${c.count.toLocaleString("fa-IR")} کسب‌وکار`}
+                            title={c.title}
+                            // subtitle={`${c.count.toLocaleString("fa-IR")} کسب‌وکار`}
                             isActive={isActive}
                             onHover={() => setActiveIndex(runningIndex)}
                             onClick={() =>
-                              handleSelectItem({ kind: "category", ...c })
+                              handleSelectItem({ kind: "categories", ...c })
                             }
+                            category={c.uniqName}
                           />
                         );
                       })}
                     </ResultGroup>
-                  )} */}
+                  )}
 
-                  {/* {filteredLocations.length > 0 && (
+                  {filteredLocations.length > 0 && (
                     <ResultGroup
                       icon={<MapPin className="h-3.5 w-3.5" />}
                       title="شهرها / مناطق"
@@ -433,7 +426,7 @@ export default function SearchBox({
                         );
                       })}
                     </ResultGroup>
-                  )} */}
+                  )}
                 </div>
               )}
             </div>
@@ -488,6 +481,7 @@ function ResultGroup({ icon, title, children }) {
 }
 
 function SimpleRow({
+  category,
   itemRef,
   icon,
   title,
@@ -497,7 +491,8 @@ function SimpleRow({
   onClick,
 }) {
   return (
-    <div
+    <Link
+      to={`/${category}`}
       ref={itemRef}
       onMouseEnter={onHover}
       onClick={onClick}
@@ -519,14 +514,14 @@ function SimpleRow({
       {isActive && (
         <ArrowUpLeft className="h-3.5 w-3.5 shrink-0 text-slate-300" />
       )}
-    </div>
+    </Link>
   );
 }
 
 function VendorRow({ itemRef, vendor, isActive, onHover, onClick, url }) {
   return (
     <Link
-      to={url}
+      to={`/businesses/${url}`}
       ref={itemRef}
       onMouseEnter={onHover}
       onClick={onClick}
@@ -573,3 +568,4 @@ function VendorRow({ itemRef, vendor, isActive, onHover, onClick, url }) {
     </Link>
   );
 }
+export default SearchBox;

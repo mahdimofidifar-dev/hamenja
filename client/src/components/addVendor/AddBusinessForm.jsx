@@ -88,7 +88,7 @@ export default function AddBusinessForm() {
   const [formData, setFormData] = useState({
     uniqName: "gamenet",
     title: "گیم نت محله",
-    categories: ["gamenet", "entertainment"],
+    category: "",
     description: "گیمنت محل",
     mobile: "09356279099",
     phone: "03132605890",
@@ -144,6 +144,7 @@ export default function AddBusinessForm() {
       alert(error.response?.data?.message || "خطا در ساخت کسب و کار");
     }
   };
+  console.log(formData);
 
   return (
     <div className="max-w-3xl mx-auto p-4 md:p-8 bg-white rounded-2xl shadow-md border border-gray-100 my-8">

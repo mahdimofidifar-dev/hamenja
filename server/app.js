@@ -7,6 +7,7 @@ import businessRouter from "./routes/Business.js";
 import commentRouter from "./routes/Comment.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import categoryRouter from "./routes/Category.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -27,6 +28,8 @@ app.use(cookieParser());
 app.use("/api/users", userRouter);
 app.use("/api/business", businessRouter);
 app.use("/api/comment", commentRouter);
+app.use("/api/category", categoryRouter);
+
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use((req, res) => {
   res.status(404).json({
