@@ -1,12 +1,19 @@
 import { CarouselY } from "@/components/common/CarouselY";
 import PhoneDialog from "@/components/forms/PhoneDialog";
-import { MapPin, MoreHorizontal, Phone, Star, CircleIcon } from "lucide-react";
+import {
+  MapPin,
+  MoreHorizontal,
+  Phone,
+  Star,
+  CircleIcon,
+  CircleDot,
+} from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toPersianDigits, openInfo } from "@/utils/businessTime";
 
 const CardBox = ({ props, loading }) => {
-  openInfo(props);
+  const isOpen = openInfo(props);
 
   return (
     <div className="box flex flex-col rounded-xl border gap-2 p-3">
@@ -31,7 +38,7 @@ const CardBox = ({ props, loading }) => {
             </div>
           </div>
         }
-        {openInfo === true ? (
+        {isOpen === true ? (
           <div className="flex gap-1 items-center">
             <CircleDot className="size-5 text-green-500 fill-green-200 " />
             <span>باز است</span>
@@ -39,9 +46,7 @@ const CardBox = ({ props, loading }) => {
         ) : (
           <div className=" flex gap-1 items-center">
             <CircleIcon className="size-5 text-red-500 fill-red-200" />
-            <span>
-              بسته تا {toPersianDigits(props.openTime)}
-            </span>
+            <span>بسته تا {toPersianDigits(props.openTime)}</span>
           </div>
         )}
       </div>

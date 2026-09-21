@@ -41,7 +41,7 @@ const BusinessDetail = () => {
       </div>
     );
   }
-  openInfo(business);
+  const isOpen = openInfo(business);
 
   return (
     <div className="bg-bg-light ">
@@ -85,7 +85,7 @@ const BusinessDetail = () => {
               </div>
             }
             <div className="flex items-center gap-0.5">
-              {openInfo === true ? (
+              {isOpen ? (
                 <div className="flex gap-1 items-center">
                   <CircleDot className="size-5 text-green-500 fill-green-200 " />
                   <span>باز است</span>
@@ -93,13 +93,9 @@ const BusinessDetail = () => {
               ) : (
                 <div className=" flex gap-1 items-center">
                   <CircleIcon className="size-5 text-red-500 fill-red-200" />
-                  <span>
-                    بسته تا {toPersianDigits(business.openTime)}
-                  </span>
+                  <span>بسته تا {toPersianDigits(business.openTime)}</span>
                 </div>
               )}
-              {/* <span className="status">بسته</span>
-              <span>تا 08:00 </span> */}
             </div>
           </div>
         </div>
