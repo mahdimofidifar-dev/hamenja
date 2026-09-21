@@ -61,7 +61,7 @@ const Listing = () => {
           </div>
           <div className="lists flex flex-col gap-4">
             {business.map((item) => {
-              return <CardBox key={item._id} props={item} loading={loading} />;
+              return <CardBox key={item._id} props={item} />;
             })}
           </div>
         </div>

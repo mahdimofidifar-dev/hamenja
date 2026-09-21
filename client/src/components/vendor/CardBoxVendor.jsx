@@ -12,7 +12,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toPersianDigits, openInfo } from "@/utils/businessTime";
 
-const CardBox = ({ props, loading }) => {
+const CardBox = ({ props }) => {
   const isOpen = openInfo(props);
 
   return (
