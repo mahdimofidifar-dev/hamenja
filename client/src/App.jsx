@@ -17,14 +17,14 @@ const UserBusinesses = lazy(() => import("./pages/UserBusinesses"));
 
 const RootLayout = () => {
   return (
-    <>
+    <div className="min-h-screen bg-brand-50">
       <Suspense fallback={<div>Loading...</div>}>
         <Outlet />
       </Suspense>
 
       <ScrollRestoration />
       <Toaster position="top-center" dir="rtl" richColors />
-    </>
+    </div>
   );
 };
 

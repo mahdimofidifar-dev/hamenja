@@ -52,35 +52,54 @@ html {
 
 @theme {
   --font-sans: "Vazirmatn";
-  /* --- 1. Primary Brand Colors (Purple Accent) --- */
-  --color-brand-50: #eef2ff;
-  --color-brand-100: #e0e7ff;
-  --color-brand-200: #c7d2fe;
-  --color-brand-300: #818cf8;
-  --color-brand-400: #6366f1;
-  --color-brand-500: #4f46e5;
-  --color-brand-600: #4338ca;
-  --color-brand-700: #3730a3;
-  --color-brand-800: #312e81;
-  --color-brand-900: #1e1b4b;
 
-  /* --- 2. Booking Slot States --- */
-  --color-slot-free: #10b981; /* Green: Available slots */
-  --color-slot-free-bg: #ecfdf5; /* Available slot background */
-  --color-slot-booked: #ef4444; /* Red: Fully booked slots */
-  --color-slot-booked-bg: #fef2f2; /* Booked slot background */
-  --color-slot-selected: #6366f1; /* Purple: Selected slot */
+  /* =========================================================
+     1. Primary Brand Colors — Ocean Breeze
+     ========================================================= */
 
-  /* --- 3. Neutrals & Layout (Light Mode) --- */
-  --color-surface-light: #ffffff; /* Card backgrounds in light mode */
-  --color-bg-light: #f8fafc; /* Main site background */
-  --color-text-main: #0f172a; /* Primary text and headings */
-  --color-text-muted: #64748b; /* Secondary text and descriptions */
-  --color-border-subtle: #e2e8f0; /* Borders and dividers */
+  --color-brand-50: #e8f6ff;
+  --color-brand-100: #c8eaff;
+  --color-brand-200: #9ed8fb;
+  --color-brand-300: #63b9f5;
+  --color-brand-400: #3ba7f2;
+  --color-brand-500: #0b3d91;
+  --color-brand-600: #09367f;
+  --color-brand-700: #072d6a;
+  --color-brand-800: #052452;
+  --color-brand-900: #031a3d;
 
-  /* --- 4. Dark Mode Colors --- */
-  --color-surface-dark: #1e293b; /* Card backgrounds in dark mode */
-  --color-bg-dark: #0f172a; /* Main site background in dark mode */
+  /* =========================================================
+     2. Secondary / Accent Colors
+     ========================================================= */
+
+  --color-secondary: #3ba7f2;
+  --color-accent: #7fe7d6;
+
+  /* =========================================================
+     3. Booking Slot States
+     ========================================================= */
+
+  --color-slot-free: #10b981;
+  --color-slot-free-bg: #ecfdf5;
+
+  --color-slot-booked: #ef4444;
+  --color-slot-booked-bg: #fef2f2;
+
+  --color-slot-selected: #0b3d91;
+
+  /* =========================================================
+     4. Neutrals & Layout — Light Mode
+     ========================================================= */
+
+  --color-surface-light: #ffffff;
+
+  --color-bg-light: #f8fbff;
+
+  --color-text-main: #0f172a;
+
+  --color-text-muted: #64748b;
+
+  --color-border-subtle: #dbe7f0;
 }
 
 @theme inline {
