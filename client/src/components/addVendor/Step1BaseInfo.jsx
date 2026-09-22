@@ -35,8 +35,6 @@ export function Step1BaseInfo({ formData, setFormData }) {
         <CategorySelector
           value={formData.category}
           onChange={(newCategories) => {
-            console.log(newCategories);
-
             setFormData({ ...formData, category: newCategories });
           }}
         />

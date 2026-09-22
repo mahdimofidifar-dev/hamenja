@@ -4,6 +4,7 @@ import { Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+const uploadUrl = import.meta.env.VITE_UPLOAD_URL;
 
 export default function Carousel({ images }) {
   return (
@@ -23,11 +24,8 @@ export default function Carousel({ images }) {
       >
         {images.map((item, index) => (
           <SwiperSlide key={index} className="flex justify-center items-center">
-            <div className="w-full h-64 md:h-80 bg-slate-800 border border-slate-700 rounded-2xl flex flex-col items-center justify-center text-white font-bold text-3xl select-none group cursor-pointer overflow-hidden relative">
-              {/* <span>Slide {item}</span> */}
-              <img src={`http://localhost:5000${item}`} alt="" />
-
-              {/* <div className="absolute inset-0 bg-indigo-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" /> */}
+            <div className="w-full h-64 md:h-80  border border-slate-300 rounded-2xl flex flex-col items-center justify-center text-white font-bold text-3xl select-none group cursor-pointer overflow-hidden relative">
+              <img src={`${uploadUrl}${item}`} alt="" />
             </div>
           </SwiperSlide>
         ))}

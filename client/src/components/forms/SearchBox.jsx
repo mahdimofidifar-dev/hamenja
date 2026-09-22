@@ -16,17 +16,6 @@ import {
 import { getAllBusiness } from "@/apis/business";
 import { Link } from "react-router-dom";
 import { getAllCategories } from "@/apis/category";
-/* =========================================================================
-   داده‌های نمونه (Mock Data) — پلتفرم رزرو خدمات و نوبت‌دهی
-   ========================================================================= */
-
-// const categories = [
-//   { id: "c1", type: "category", name: "آرایشگاه و زیبایی", count: 128 },
-//   { id: "c2", type: "category", name: "پزشکی و سلامت", count: 96 },
-//   { id: "c3", type: "category", name: "ورزش و تناسب اندام", count: 74 },
-//   { id: "c4", type: "category", name: "خودرو", count: 41 },
-//   { id: "c5", type: "category", name: "عکاسی و فیلمبرداری", count: 23 },
-// ];
 
 const LOCATIONS = [
   { id: "l1", type: "location", name: "تهران - سعادت‌آباد", count: 214 },
@@ -207,10 +196,10 @@ function SearchBox({
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="group flex w-full items-center gap-3 rounded-md border border-brand-300 bg-white px-4 h-14 text-right shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-slate-300 hover:shadow-md dark:border-slate-700/70 dark:bg-slate-900/70 dark:hover:border-slate-600"
+        className="group flex w-full items-center gap-3 rounded-md border border-brand-300 bg-white px-4 h-14 text-right shadow-sm backdrop-blur-sm transition-all duration-300 hover:border-slate-300 hover:shadow-md"
       >
-        <Search className="size-5 shrink-0 text-slate-400 transition-colors group-hover:text-slate-500 dark:text-slate-500" />
-        <span className="flex-1 truncate text-sm text-slate-400 dark:text-slate-500">
+        <Search className="size-5 shrink-0 text-slate-400 transition-colors group-hover:text-slate-500 " />
+        <span className="flex-1 truncate text-sm text-slate-400 ">
           {placeholder}
         </span>
       </button>
@@ -218,16 +207,16 @@ function SearchBox({
       {/* ---------- پنل شناور (Overlay) ---------- */}
       {open && (
         <div
-          className="psb-overlay fixed inset-0 z-50 flex items-start justify-center bg-slate-900/40 px-4 pt-[8vh] backdrop-blur-sm dark:bg-black/60"
+          className="psb-overlay fixed inset-0 z-50 flex items-start justify-center bg-slate-900/40 px-4 pt-[8vh] backdrop-blur-sm "
           onClick={() => setOpen(false)}
         >
           <div
-            className="psb-panel w-full max-w-xl overflow-hidden rounded-md border border-slate-200/80 bg-white shadow-2xl ring-1 ring-black/5 dark:border-slate-700/70 dark:bg-slate-900 dark:ring-white/5"
+            className="psb-panel w-full max-w-xl overflow-hidden rounded-md border border-slate-200/80 bg-white shadow-2xl ring-1 ring-black/5 "
             onClick={(e) => e.stopPropagation()}
             dir="rtl"
           >
             {/* ---- نوار جستجو ---- */}
-            <div className="flex items-center gap-3 border-b border-slate-100 px-4 dark:border-slate-800">
+            <div className="flex items-center gap-3 border-b border-slate-100 px-4 ">
               <Search className="h-[18px] w-[18px] shrink-0 text-slate-400" />
               <input
                 ref={inputRef}
@@ -235,12 +224,12 @@ function SearchBox({
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="نام کسب‌وکار، خدمت یا شهر را وارد کنید…"
-                className="h-14 flex-1 bg-transparent text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none dark:text-slate-100 dark:placeholder:text-slate-500"
+                className="h-14 flex-1 bg-transparent text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none  -500"
               />
               {query && (
                 <button
                   onClick={() => setQuery("")}
-                  className="rounded-full p-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-800 dark:hover:text-slate-300"
+                  className="rounded-full p-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 "
                   aria-label="پاک کردن جستجو"
                 >
                   <X className="h-4 w-4" />
@@ -248,7 +237,7 @@ function SearchBox({
               )}
               <button
                 onClick={() => setOpen(false)}
-                className="hidden shrink-0 rounded-md border border-slate-200 px-1.5 py-0.5 text-[11px] text-slate-400 sm:block dark:border-slate-700 dark:text-slate-500"
+                className="hidden shrink-0 rounded-md border border-slate-200 px-1.5 py-0.5 text-[11px] text-slate-400 sm:block"
               >
                 Esc
               </button>
@@ -263,14 +252,14 @@ function SearchBox({
               {!hasQuery && (
                 <div className="px-1 py-1">
                   <div className="flex items-center justify-between px-2 pb-1.5 pt-2">
-                    <span className="flex items-center gap-1.5 text-[12px] font-medium text-slate-400 dark:text-slate-500">
+                    <span className="flex items-center gap-1.5 text-[12px] font-medium text-slate-400 ">
                       <Clock className="h-3.5 w-3.5" />
                       جستجوهای اخیر
                     </span>
                     {recent.length > 0 && (
                       <button
                         onClick={clearAllRecent}
-                        className="flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] text-slate-400 transition-colors hover:bg-brand-200 hover:text-rose-500 dark:hover:bg-slate-800"
+                        className="flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] text-slate-400 transition-colors hover:bg-brand-200 hover:text-rose-500 "
                       >
                         <Trash2 className="h-3 w-3" />
                         پاک کردن همه
@@ -280,8 +269,8 @@ function SearchBox({
 
                   {recent.length === 0 && (
                     <div className="flex flex-col items-center gap-2 px-4 py-10 text-center">
-                      <Clock className="h-7 w-7 text-slate-300 dark:text-slate-600" />
-                      <p className="text-sm text-slate-400 dark:text-slate-500">
+                      <Clock className="h-7 w-7 text-slate-300 " />
+                      <p className="text-sm text-slate-400 ">
                         هنوز جستجویی ثبت نشده است
                       </p>
                     </div>
@@ -300,17 +289,17 @@ function SearchBox({
                         }
                         className={`flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors ${
                           isActive
-                            ? "bg-brand-200 dark:bg-slate-800"
-                            : "hover:bg-slate-50 dark:hover:bg-slate-800/60"
+                            ? "bg-brand-200 "
+                            : "hover:bg-slate-50 -800/60"
                         }`}
                       >
                         <Clock className="h-4 w-4 shrink-0 text-slate-400" />
-                        <span className="flex-1 truncate text-slate-700 dark:text-slate-200">
+                        <span className="flex-1 truncate text-slate-700 ">
                           {r.label}
                         </span>
                         <button
                           onClick={(e) => removeRecent(r.id, e)}
-                          className="rounded-full p-1 text-slate-300 opacity-0 transition-all hover:bg-slate-200 hover:text-slate-600 group-hover:opacity-100 dark:hover:bg-slate-700"
+                          className="rounded-full p-1 text-slate-300 opacity-0 transition-all hover:bg-slate-200 hover:text-slate-600 group-hover:opacity-100 -700"
                           style={{ opacity: isActive ? 1 : undefined }}
                           aria-label="حذف از تاریخچه"
                         >
@@ -325,13 +314,13 @@ function SearchBox({
               {/* حالت با کوئری، بدون نتیجه */}
               {hasQuery && !hasResults && (
                 <div className="flex flex-col items-center gap-3 px-6 py-14 text-center">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 ">
                     <Search className="h-5 w-5 text-slate-400" />
                   </div>
-                  <p className="text-sm font-medium text-slate-600 dark:text-slate-300">
+                  <p className="text-sm font-medium text-slate-600 ">
                     کسب‌وکار یا خدمتی با این نام پیدا نشد
                   </p>
-                  <p className="text-xs text-slate-400 dark:text-slate-500">
+                  <p className="text-xs text-slate-400 ">
                     املای عبارت را بررسی کنید یا کلمه‌ی دیگری را امتحان کنید
                   </p>
                 </div>
@@ -432,26 +421,26 @@ function SearchBox({
             </div>
 
             {/* ---- پاورقی راهنمای کیبورد ---- */}
-            <div className="flex items-center justify-between border-t border-slate-100 px-4 py-2.5 text-[11px] text-slate-400 dark:border-slate-800 dark:text-slate-500">
+            <div className="flex items-center justify-between border-t border-slate-100 px-4 py-2.5 text-[11px] text-slate-400  ">
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1">
-                  <kbd className="rounded border border-slate-200 px-1.5 py-0.5 dark:border-slate-700">
+                  <kbd className="rounded border border-slate-200 px-1.5 py-0.5 ">
                     ↑
                   </kbd>
-                  <kbd className="rounded border border-slate-200 px-1.5 py-0.5 dark:border-slate-700">
+                  <kbd className="rounded border border-slate-200 px-1.5 py-0.5 ">
                     ↓
                   </kbd>
                   جابه‌جایی
                 </span>
                 <span className="flex items-center gap-1">
-                  <kbd className="rounded border border-slate-200 px-1.5 py-0.5 dark:border-slate-700">
+                  <kbd className="rounded border border-slate-200 px-1.5 py-0.5 ">
                     Enter
                   </kbd>
                   انتخاب
                 </span>
               </div>
               <span className="flex items-center gap-1">
-                <kbd className="rounded border border-slate-200 px-1.5 py-0.5 dark:border-slate-700">
+                <kbd className="rounded border border-slate-200 px-1.5 py-0.5 ">
                   Esc
                 </kbd>
                 بستن
@@ -471,7 +460,7 @@ function SearchBox({
 function ResultGroup({ icon, title, children }) {
   return (
     <div className="px-1 py-1">
-      <div className="flex items-center gap-1.5 px-2 pb-1.5 pt-2 text-[12px] font-medium text-slate-400 dark:text-slate-500">
+      <div className="flex items-center gap-1.5 px-2 pb-1.5 pt-2 text-[12px] font-medium text-slate-400 ">
         {icon}
         {title}
       </div>
@@ -497,18 +486,14 @@ function SimpleRow({
       onMouseEnter={onHover}
       onClick={onClick}
       className={`flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors ${
-        isActive
-          ? "bg-slate-100 dark:bg-slate-800"
-          : "hover:bg-slate-50 dark:hover:bg-slate-800/60"
+        isActive ? "bg-slate-100 " : "hover:bg-slate-50 -800/60"
       }`}
     >
       {icon}
       <div className="flex flex-1 flex-col">
-        <span className="text-slate-700 dark:text-slate-200">{title}</span>
+        <span className="text-slate-700 ">{title}</span>
         {subtitle && (
-          <span className="text-[11px] text-slate-400 dark:text-slate-500">
-            {subtitle}
-          </span>
+          <span className="text-[11px] text-slate-400 ">{subtitle}</span>
         )}
       </div>
       {isActive && (
@@ -526,27 +511,25 @@ function VendorRow({ itemRef, vendor, isActive, onHover, onClick, url }) {
       onMouseEnter={onHover}
       onClick={onClick}
       className={`flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-colors ${
-        isActive
-          ? "bg-slate-100 dark:bg-slate-800"
-          : "hover:bg-slate-50 dark:hover:bg-slate-800/60"
+        isActive ? "bg-slate-100 " : "hover:bg-slate-50 -800/60"
       }`}
     >
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-50 to-violet-50 text-indigo-500 dark:from-indigo-500/10 dark:to-violet-500/10 dark:text-indigo-300">
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-50 to-violet-50 text-indigo-500 /10 /10 ">
         <Building2 className="h-4 w-4" />
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         <div className="flex items-center gap-1.5">
-          <span className="truncate font-medium text-slate-700 dark:text-slate-200">
+          <span className="truncate font-medium text-slate-700 ">
             {vendor.title}
           </span>
           {vendor.badge && (
-            <span className="shrink-0 rounded-full bg-amber-50 px-1.5 py-0.5 text-[10px] font-medium text-amber-600 dark:bg-amber-500/10 dark:text-amber-400">
+            <span className="shrink-0 rounded-full bg-amber-50 px-1.5 py-0.5 text-[10px] font-medium text-amber-600 /10 ">
               {vendor.badge}
             </span>
           )}
         </div>
-        <div className="flex flex-wrap items-center gap-x-2.5 gap-y-0.5 text-[11px] text-slate-400 dark:text-slate-500">
+        <div className="flex flex-wrap items-center gap-x-2.5 gap-y-0.5 text-[11px] text-slate-400 ">
           <span className="flex items-center gap-1">
             <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
             {vendor.rate.toLocaleString("fa-IR")}

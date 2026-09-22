@@ -4,13 +4,11 @@ import { Eye, Pencil, Trash, Store } from "lucide-react";
 import { useAuth } from "@/context/authContext";
 import { deleteBusiness } from "@/apis/business";
 
-export const UserBusinesses = () => {
+const UserBusinesses = () => {
   const { user, loading } = useAuth();
-  console.log(user);
   if (loading) {
     return <>...</>;
   } else {
-
     const businesses = user.business || [];
 
     if (!businesses.length) {
@@ -94,7 +92,7 @@ export const UserBusinesses = () => {
                 <Pencil size={18} />
               </Link>
               <Link
-                to={`/lists/${item.uniqName}`}
+                to={`/businesses/${item.uniqName}`}
                 className="p-2  text-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
               >
                 <Eye size={18} />
@@ -114,3 +112,5 @@ export const UserBusinesses = () => {
     );
   }
 };
+
+export default UserBusinesses;

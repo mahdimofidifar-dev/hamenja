@@ -4,7 +4,7 @@ const DividerTitle = ({title}) => {
       <span className="text-md font-semibold text-slate-500 whitespace-nowrap">
         {title}
       </span>
-      <div className="flex-1 h-[1px] bg-slate-200" />
+      <div className="flex-1 h-px bg-slate-200" />
     </div>
   );
 };

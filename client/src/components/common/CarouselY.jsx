@@ -7,7 +7,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+
 export function CarouselY({ img = [], className, col }) {
+  const uploadUrl = import.meta.env.VITE_UPLOAD_URL;
+
   return (
     <Carousel
       className={className}
@@ -31,7 +34,7 @@ export function CarouselY({ img = [], className, col }) {
           >
             <div className="w-72 h-48 overflow-hidden rounded-xl">
               <img
-                src={`http://localhost:5000${url}`}
+                src={`${uploadUrl}${url}`}
                 className="w-full h-full object-cover"
               />
             </div>

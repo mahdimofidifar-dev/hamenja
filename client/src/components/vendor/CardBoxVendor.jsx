@@ -14,11 +14,12 @@ import { toPersianDigits, openInfo } from "@/utils/businessTime";
 
 const CardBox = ({ props }) => {
   const isOpen = openInfo(props);
+  console.log(isOpen);
 
   return (
     <div className="box flex flex-col rounded-xl border gap-2 p-3">
       <div className="name text-2xl">{props.title}</div>
-      <div className="description text-md text-slate-500">
+      <div className="description text-md text-slate-500 line-clamp-2">
         {props.description}
       </div>
       <div className="flex  gap-2 text-text-muted">
@@ -50,8 +51,8 @@ const CardBox = ({ props }) => {
           </div>
         )}
       </div>
-      <div className="flex items-center text-slate-500">
-        <MapPin />
+      <div className="flex items-center gap-2 text-slate-500">
+        <MapPin className="size-5" />
         <div className="address">{props.address}</div>
       </div>
 
@@ -59,15 +60,13 @@ const CardBox = ({ props }) => {
 
       <div className="cont flex w-full justify-evenly">
         <PhoneDialog
-          contentButton={
-            <span className="flex gap-2 items-center justify-center">
-              <Phone className="size-4.5" /> تماس
-            </span>
-          }
+          mobile={props.mobile}
+          phone={props.phone}
+          contentButton={"تماس"}
         />
         <Link
           to={`/businesses/${props.uniqName}`}
-          className="flex h-12 w-36 justify-center text-md items-center border rounded-md gap-2"
+          className="flex  w-36 justify-center text-md items-center border rounded-md gap-2"
         >
           <MoreHorizontal className="size-4.5" />
           جزئیات ببشتر

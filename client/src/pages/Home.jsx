@@ -7,11 +7,6 @@ import { useEffect, useState } from "react";
 import { addCategories, getAllCategories } from "@/apis/category";
 // import { CarouselY } from "@/components/ui/CarouselY";
 export default function Home() {
-  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const now = new Date();
-
-  console.log(now);
-  console.log(timeZone);
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -20,6 +15,7 @@ export default function Home() {
     };
     fetchData();
   }, []);
+
   return (
     <div className="">
       <Header />
@@ -47,7 +43,7 @@ export default function Home() {
             {categories.map((category) => {
               return (
                 <CategoryBox
-                  key={categories._id}
+                  key={category._id}
                   url={category.uniqName}
                   icon={<SquareOff className="size-8" />}
                   title={category.title}

@@ -11,7 +11,6 @@ const isBusinessOpen = ({
   currentTime,
 }) => {
   if (is24Hours) return true;
-  console.log(is24Hours);
 
   const toMinutes = (time) => {
     const [hours, minutes] = time.split(":").map(Number);
@@ -21,7 +20,6 @@ const isBusinessOpen = ({
   const current = toMinutes(currentTime);
   const open = toMinutes(openTime);
   const close = toMinutes(closeTime);
-  console.log(open, current);
 
   // ساعت باز و بسته شدن یکسان
   if (open === close) {
@@ -34,12 +32,10 @@ const isBusinessOpen = ({
   }
 
   // ساعت کاری معمولی
-  //   console.log(current >= open && current < close);
-
   return current >= open && current < close;
 };
 export const openInfo = (business) => {
-  console.log(business);
+  console.log(business.uniqName, business.openTime, business.closeTime, business.is24Hours);
 
   const isOpen = isBusinessOpen({
     openTime: business.openTime,
@@ -47,7 +43,6 @@ export const openInfo = (business) => {
     is24Hours: business.is24Hours,
     currentTime: time,
   });
-  console.log(isOpen);
 
   return isOpen;
 };

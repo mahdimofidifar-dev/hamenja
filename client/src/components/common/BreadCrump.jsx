@@ -9,7 +9,7 @@ const BreadCrump = ({ text = "بازگشت" }) => {
   return (
     <Link
       onClick={backHandler}
-      className="flex items-center p-4 bg-brand-50 hover:bg-brand-100 hover:text-brand-600 text-text-main"
+      className="flex items-center justify-center gap-3 p-4 bg-brand-50 hover:bg-brand-100 hover:text-brand-600 text-text-main"
     >
       <ArrowRight className="size-5" /> <span>{text}</span>
     </Link>

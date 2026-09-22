@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -6,17 +5,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
+import { Phone } from "lucide-react";
 const PhoneDialog = ({ contentButton = "تماس", mobile, phone }) => {
   return (
     <Dialog className="w-full">
-      <DialogTrigger showCloseButton={false}>
-        <Button
-          variant="outline"
-          className="h-12 px-10 w-auto text-md bg-brand-600 hover:bg-brand-200 text-brand-200 rounded-lg cursor-pointer"
-        >
+      <DialogTrigger>
+        <a className="w-full h-14 gap-1.5 px-10 py-4 flex items-center justify-center text-lg bg-brand-600 hover:bg-brand-500 text-white rounded-md cursor-pointer">
+          <Phone className="size-5.5" />
           {contentButton}
-        </Button>
+        </a>
       </DialogTrigger>
 
       <DialogContent className="w-full flex flex-col justify-center items-center">
@@ -24,7 +21,7 @@ const PhoneDialog = ({ contentButton = "تماس", mobile, phone }) => {
           <DialogTitle className="text-lg">تماس با فروشنده</DialogTitle>
         </DialogHeader>
         <a
-          className="bg-brand-500 text-lg w-full text-center rounded-lg p-2 px-4"
+          className="bg-brand-600 hover:bg-brand-500 py-3.5 text-lg w-full text-white text-center rounded-lg p-2 px-4"
           href={`tel:${phone}`}
         >
           تماس با تلفن ثابت
@@ -32,12 +29,12 @@ const PhoneDialog = ({ contentButton = "تماس", mobile, phone }) => {
         <p className="text-lg">{phone}</p>
 
         <a
-          className="bg-brand-500 text-lg w-full text-center rounded-lg p-2 px-4"
+          className="bg-brand-600 hover:bg-brand-500 py-3.5 text-lg w-full text-white text-center rounded-lg p-2 px-4"
           href={`tel:${mobile}`}
         >
           تماس با تلفن همراه
         </a>
-        <p className="text-lg">{mobile}</p>
+        <p className="text-lg ">{mobile}</p>
       </DialogContent>
     </Dialog>
   );

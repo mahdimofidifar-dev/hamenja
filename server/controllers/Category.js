@@ -13,7 +13,6 @@ export const addCategory = async (req, res) => {
   try {
     await Category.create({ title, uniqName });
     res.json("sakht");
-    console.log("shkt");
   } catch (error) {
     console.log(error);
   }

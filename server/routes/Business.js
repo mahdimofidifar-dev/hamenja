@@ -11,15 +11,15 @@ import {
 import upload from "../middlewares/upload.js";
 const businessRouter = e.Router();
 businessRouter
-.route("/")
-.post(
-  upload.fields([
-    { name: "logo", maxCount: 1 },
-    { name: "gallery", maxCount: 10 },
-  ]),
-  addBusiness,
-)
-.get(getAllBusiness);
+  .route("/")
+  .post(
+    upload.fields([
+      { name: "logo", maxCount: 1 },
+      { name: "gallery", maxCount: 10 },
+    ]),
+    addBusiness,
+  )
+  .get(getAllBusiness);
 businessRouter.route("/category/:key").get(getBusinessOfCategory);
 businessRouter.route("/:uniqName").get(getOneBusiness);
 businessRouter.route("/upload").post(upload.single("image"), uploadImg);

@@ -26,7 +26,7 @@ const Listing = () => {
       }
     };
     fetchBusinesses();
-  }, []);
+  }, [category]);
   useEffect(() => {
     const fetchCategory = async () => {
       try {
@@ -40,7 +40,7 @@ const Listing = () => {
       }
     };
     fetchCategory();
-  }, []);
+  }, [category]);
 
   return (
     <div className="flex flex-col gap-3">

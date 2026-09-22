@@ -5,6 +5,7 @@ import {
   ScrollRestoration,
 } from "react-router-dom";
 import { lazy, Suspense } from "react";
+import { Toaster } from "sonner";
 
 const Home = lazy(() => import("./pages/Home"));
 const Listing = lazy(() => import("./pages/Listing"));
@@ -22,6 +23,7 @@ const RootLayout = () => {
       </Suspense>
 
       <ScrollRestoration />
+      <Toaster position="top-center" dir="rtl" richColors />
     </>
   );
 };

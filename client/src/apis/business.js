@@ -1,39 +1,7 @@
 import api from "./axios";
 
 export const addBusiness = async (businessData) => {
-  const data = new FormData();
-
-  Object.entries(businessData).forEach(([key, value]) => {
-    if (key === "logo" || key === "gallery") {
-      return;
-    }
-
-    if (Array.isArray(value)) {
-      value.forEach((item) => {
-        data.append(key, item);
-      });
-
-      return;
-    }
-
-    if (value !== null && value !== undefined) {
-      data.append(key, value);
-    }
-  });
-
-  // Logo
-  if (businessData.logo?.file) {
-    data.append("logo", businessData.logo.file);
-  }
-
-  // Gallery
-  businessData.gallery.forEach((image) => {
-    if (image.file) {
-      data.append("gallery", image.file);
-    }
-  });
-
-  const response = await api.post("/business", data);
+  const response = await api.post("/business", businessData);
 
   return response.data;
 };

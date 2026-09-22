@@ -2,15 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/inter";
-@custom-variant dark (&:is(.dark *));
 
-@font-face {
-  font-family: "Vazirmatn";
-  src: url("/src/assets/fonts/Vazirmatn-Thin.woff2") format("woff2");
-  font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-}
 @font-face {
   font-family: "Vazirmatn";
   src: url("/src/assets/fonts/Vazirmatn-Light.woff2") format("woff2");
@@ -43,14 +35,10 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: "Vazirmatn";
-  src: url("/src/assets/fonts/Vazirmatn-Black.woff2") format("woff2");
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
 * {
+  /* border: 1px solid gray; */
+  scrollbar-width: thin;
+
   font-family: "Vazirmatn", sans-serif !important;
 }
 body {
@@ -61,6 +49,7 @@ html {
   scroll-behavior: smooth;
   background: rgb(55, 48, 163), rgb(67, 56, 202);
 }
+
 @theme {
   --font-sans: "Vazirmatn";
   /* --- 1. Primary Brand Colors (Purple Accent) --- */

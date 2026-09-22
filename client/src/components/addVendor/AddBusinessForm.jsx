@@ -1,225 +1,426 @@
-"use client";
-
 import { useState } from "react";
-import { ArrowRight, ArrowLeft, CheckCircle2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
+import { toast } from "sonner";
+
 import { Step1BaseInfo } from "./Step1BaseInfo";
 import { Step2Contact } from "./Step2Contact";
 import { Step3Location } from "./Step3Location";
 import { Step4Amenities } from "./Step4Amenities";
 import { Step5Gallery } from "./Step5Gallery";
-import { addBusiness } from "../../apis/business.js";
+
+import { addBusiness } from "@/apis/business";
 import { useAuth } from "@/context/authContext";
+import { businessSchema } from "@/validation/businessSchema";
 
 const STEPS = [
-  { id: 1, title: "اطلاعات پایه" },
-  { id: 2, title: "ارتباطات" },
-  { id: 3, title: "موقعیت مکانی" },
-  { id: 4, title: "امکانات و زمان‌بندی" },
-  { id: 5, title: "تصاویر" },
+  {
+    id: 1,
+    title: "اطلاعات پایه",
+  },
+  {
+    id: 2,
+    title: "ارتباطات",
+  },
+  {
+    id: 3,
+    title: "موقعیت مکانی",
+  },
+  {
+    id: 4,
+    title: "امکانات و زمان‌بندی",
+  },
+  {
+    id: 5,
+    title: "تصاویر",
+  },
 ];
 
+const INITIAL_FORM_DATA = {};
+
+const STEP_FIELDS = {
+  1: ["title", "uniqName", "category", "description"],
+  2: ["mobile", "phone", "socialLinks"],
+  3: ["province", "city", "neighborhood", "address", "latitude", "longitude"],
+  4: ["amenities", "is24Hours", "workingHours"],
+  5: ["logo", "gallery"],
+};
+
 export default function AddBusinessForm() {
+  const navigate = useNavigate();
   const { user } = useAuth();
+
   const [currentStep, setCurrentStep] = useState(1);
-  // const [formData, setFormData] = useState({
-  //   uniqName: "gamenet",
-  //   title: "گیم نت محله",
-  //   categories: ["gamenet", "entertainment"],
-  //   description: "گیمنت محل",
-  //   mobile: "09356279099",
-  //   phone: "03132605890",
-  //   instagram: "",
-  //   website: "hamenja.ir",
-  //   province: "اصفهان",
-  //   city: "اصفهان",
-  //   neighborhood: "شهرستان",
-  //   address: "شهرستان خیابان بازارچه ",
-  //   latitude: 35.65414545546027,
-  //   longitude: 51.34685615857849,
-  //   amenities: ["wifi", "cafe", "pos"],
-  //   is24Hours: false,
-  //   openTime: "09:00",
-  //   closeTime: "23:00",
-  //   workingDays: [
-  //     "شنبه",
-  //     "یکشنبه",
-  //     "دوشنبه",
-  //     "سه‌شنبه",
-  //     "چهار‌شتبه",
-  //     "پنج‌شنبه",
-  //     "جمعه",
-  //     "thu",
-  //     "tue",
-  //     "mon",
-  //   ],
-  //   logo: "",
-  //   gallery: [""],
-  //   // title: "",
-  //   // categories: [],
-  //   // description: "",
-  //   // mobile: "",
-  //   // phone: "",
-  //   // instagram: "",
-  //   // website: "",
-  //   // province: "",
-  //   // city: "",
-  //   // neighborhood: "",
-  //   // address: "",
-  //   // latitude: 35.6892,
-  //   // longitude: 51.389,
-  //   // amenities: [],
-  //   // is24Hours: false,
-  //   // openTime: "09:00",
-  //   // closeTime: "23:00",
-  //   // workingDays: [
-  //   //   "شنبه",
-  //   //   "یکشنبه",
-  //   //   "دوشنبه",
-  //   //   "سه‌شنبه",
-  //   //   "چهار‌شتبه",
-  //   //   "پنج‌شنبه",
-  //   //   "جمعه",
-  //   // ],
-  //   // coverImage: null,
-  //   // gallery: [],
-  //   ownerId: user._id,
-  // });
+  const [loading, setLoading] = useState(false);
 
-  const [formData, setFormData] = useState({
-    uniqName: "gamenet",
-    title: "گیم نت محله",
-    category: "",
-    description: "گیمنت محل",
-    mobile: "09356279099",
-    phone: "03132605890",
-    instagram: "",
-    website: "hamenja.ir",
+  // تمام اطلاعات کسب‌وکار فقط در این state
+  const [businessData, setBusinessData] = useState({
+    uniqName: "",
+    title: "",
+    category: [],
+    description: "",
 
-    province: "اصفهان",
-    city: "اصفهان",
-    neighborhood: "شهرستان",
-    address: "شهرستان خیابان بازارچه",
+    mobile: "",
+    phone: "",
+    socialLinks: [],
 
-    latitude: 35.65414545546027,
-    longitude: 51.34685615857849,
+    province: "",
+    city: "",
+    neighborhood: "",
+    address: "",
 
-    amenities: ["wifi", "cafe", "pos"],
+    latitude: null,
+    longitude: null,
+
+    amenities: [],
 
     is24Hours: false,
-    openTime: "09:00",
-    closeTime: "23:00",
 
-    workingDays: [
-      "شنبه",
-      "یکشنبه",
-      "دوشنبه",
-      "سه‌شنبه",
-      "چهارشنبه",
-      "پنج‌شنبه",
-      "جمعه",
-    ],
+    workingHours: {
+      sat: [],
+      sun: [],
+      mon: [],
+      tue: [],
+      wed: [],
+      thu: [],
+      fri: [],
+    },
 
     logo: null,
     gallery: [],
-
-    ownerId: user._id,
+    ownerId: user?._id,
   });
 
-  const [loading, setLoading] = useState(true);
-  const handleNext = () => setCurrentStep((prev) => Math.min(prev + 1, 5));
-  const handlePrev = () => setCurrentStep((prev) => Math.max(prev - 1, 1));
+  const validateStep = () => {
+    const fields = STEP_FIELDS[currentStep];
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    const stepSchema = businessSchema.pick(
+      Object.fromEntries(fields.map((field) => [field, true])),
+    );
+
+    const stepData = Object.fromEntries(
+      fields.map((field) => [field, businessData[field]]),
+    );
+
+    const result = stepSchema.safeParse(stepData);
+
+    if (result.success) {
+      return true;
+    }
+
+    const firstError = result.error.issues[0];
+
+    toast.error(firstError.message);
+
+    return false;
+  };
+
+  const handleNext = () => {
+    if (!validateStep()) {
+      return;
+    }
+
+    setCurrentStep((prev) => Math.min(prev + 1, STEPS.length));
+  };
+
+  const handlePrev = () => {
+    if (loading) {
+      return;
+    }
+
+    setCurrentStep((prev) => Math.max(prev - 1, 1));
+  };
+
+  const buildFormData = () => {
+    const data = new FormData();
+
+    data.append("uniqName", businessData.uniqName);
+    data.append("title", businessData.title);
+    data.append("description", businessData.description || "");
+
+    data.append("category", JSON.stringify(businessData.category));
+
+    data.append("mobile", businessData.mobile);
+    data.append("phone", businessData.phone || "");
+
+    data.append("socialLinks", JSON.stringify(businessData.socialLinks));
+
+    data.append("province", businessData.province);
+    data.append("city", businessData.city);
+
+    data.append("neighborhood", businessData.neighborhood || "");
+
+    data.append("address", businessData.address);
+
+    data.append("latitude", String(businessData.latitude));
+
+    data.append("longitude", String(businessData.longitude));
+
+    data.append("amenities", JSON.stringify(businessData.amenities));
+
+    data.append("is24Hours", String(businessData.is24Hours));
+
+    data.append("workingHours", JSON.stringify(businessData.workingHours));
+
+    data.append("ownerId", businessData.ownerId);
+
+    if (businessData.logo?.file) {
+      data.append("logo", businessData.logo.file);
+    }
+
+    businessData.gallery.forEach((image) => {
+      if (image.file) {
+        data.append("gallery", image.file);
+      }
+    });
+
+    return data;
+  };
+
+  const handleSubmit = async () => {
+    if (!validateStep()) {
+      return;
+    }
+
+    if (!user?._id) {
+      toast.error("اطلاعات کاربر یافت نشد.");
+      return;
+    }
 
     try {
-      await addBusiness(formData);
+      setLoading(true);
 
-      alert("کسب و کار شما با موفقیت ساخته شد");
+      const payload = buildFormData();
 
-      navigation.back();
+      await addBusiness(payload);
+
+      toast.success("کسب‌وکار با موفقیت ثبت شد.");
+
+      navigate(-1);
     } catch (error) {
-      console.error(error);
+      console.error("Add business error:", error);
 
-      alert(error.response?.data?.message || "خطا در ساخت کسب و کار");
+      toast.error("ثبت کسب‌وکار با خطا مواجه شد.");
+    } finally {
+      setLoading(false);
     }
   };
-  console.log(formData);
+
+  const renderCurrentStep = () => {
+    switch (currentStep) {
+      case 1:
+        return (
+          <Step1BaseInfo
+            formData={businessData}
+            setFormData={setBusinessData}
+          />
+        );
+
+      case 2:
+        return (
+          <Step2Contact formData={businessData} setFormData={setBusinessData} />
+        );
+
+      case 3:
+        return (
+          <Step3Location
+            formData={businessData}
+            setFormData={setBusinessData}
+          />
+        );
+
+      case 4:
+        return (
+          <Step4Amenities
+            formData={businessData}
+            setFormData={setBusinessData}
+          />
+        );
+
+      case 5:
+        return (
+          <Step5Gallery formData={businessData} setFormData={setBusinessData} />
+        );
+
+      default:
+        return null;
+    }
+  };
+
+  const currentStepInfo = STEPS[currentStep - 1];
 
   return (
-    <div className="max-w-3xl mx-auto p-4 md:p-8 bg-white rounded-2xl shadow-md border border-gray-100 my-8">
-      <div className="mb-8">
-        <div className="flex justify-between items-center relative z-10">
-          {STEPS.map((step) => {
-            const isCompleted = step.id < currentStep;
-            const isCurrent = step.id === currentStep;
-            return (
-              <div key={step.id} className="flex flex-col items-center gap-1.5">
-                <div
-                  className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm transition-all ${isCompleted ? "bg-indigo-600 text-white" : isCurrent ? "bg-indigo-600 text-white ring-4 ring-indigo-100" : "bg-gray-100 text-gray-400"}`}
-                >
-                  {isCompleted ? <CheckCircle2 className="w-5 h-5" /> : step.id}
-                </div>
-                <span
-                  className={`text-xs font-medium hidden sm:inline-block ${isCurrent ? "text-indigo-600 font-bold" : "text-gray-400"}`}
-                >
-                  {step.title}
-                </span>
-              </div>
-            );
-          })}
+    <div dir="rtl" className="min-h-screen bg-gray-50 px-4 py-8">
+      <div className="mx-auto max-w-3xl">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-2xl font-bold text-gray-900">ثبت کسب‌وکار</h1>
+
+          <p className="mt-2 text-sm text-gray-500">
+            اطلاعات کسب‌وکار خود را وارد کنید تا صفحه اختصاصی شما در همینجا
+            ساخته شود.
+          </p>
         </div>
-      </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {currentStep === 1 && (
-          <Step1BaseInfo formData={formData} setFormData={setFormData} />
-        )}
-        {currentStep === 2 && (
-          <Step2Contact formData={formData} setFormData={setFormData} />
-        )}
-        {currentStep === 3 && (
-          <Step3Location formData={formData} setFormData={setFormData} />
-        )}
-        {currentStep === 4 && (
-          <Step4Amenities formData={formData} setFormData={setFormData} />
-        )}
-        {currentStep === 5 && (
-          <Step5Gallery formData={formData} setFormData={setFormData} />
-        )}
+        {/* Steps */}
+        <div className="mb-8 overflow-x-auto  h-full p-2">
+          <div className="flex min-w-max items-center justify-center">
+            {STEPS.map((step, index) => {
+              const isCompleted = currentStep > step.id;
+              const isCurrent = currentStep === step.id;
 
-        <div className="flex justify-between items-center pt-6 border-t mt-8">
-          {currentStep > 1 ? (
+              return (
+                <div key={step.id} className="flex items-center">
+                  {/* Step Circle */}
+                  <div className="flex flex-col items-center">
+                    <div
+                      className={`
+                        flex h-10 w-10
+                        items-center justify-center
+                        rounded-full border-2
+                        text-sm font-semibold
+                        transition-all
+
+                        ${
+                          isCompleted
+                            ? "border-brand-600 bg-brand-600 text-white"
+                            : isCurrent
+                              ? "border-brand-600 bg-white text-brand-600 ring-4 ring-brand-100"
+                              : "border-gray-300 bg-white text-gray-400"
+                        }
+                      `}
+                    >
+                      {isCompleted ? (
+                        <CheckCircle2 className="h-5 w-5" />
+                      ) : (
+                        step.id
+                      )}
+                    </div>
+
+                    <span
+                      className={`
+                        mt-2 whitespace-nowrap
+                        text-xs font-medium
+
+                        ${
+                          isCurrent
+                            ? "text-brand-600"
+                            : isCompleted
+                              ? "text-gray-700"
+                              : "text-gray-400"
+                        }
+                      `}
+                    >
+                      {step.title}
+                    </span>
+                  </div>
+
+                  {/* Connector */}
+                  {index < STEPS.length - 1 && (
+                    <div
+                      className={`
+                        mx-3 h-0.5
+                        w-8 sm:w-12
+
+                        ${
+                          currentStep > step.id ? "bg-brand-600" : "bg-gray-200"
+                        }
+                      `}
+                    />
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Form Card */}
+        <div className="rounded-2xl bg-white p-5 shadow-sm sm:p-8">
+          {/* Current Step Header */}
+          <div className="mb-6">
+            <p className="text-sm text-gray-400">
+              مرحله {currentStep} از {STEPS.length}
+            </p>
+
+            <h2 className="mt-1 text-xl font-bold text-gray-900">
+              {currentStepInfo.title}
+            </h2>
+          </div>
+
+          {/* Step Content */}
+          <div className="min-h-[300px]">{renderCurrentStep()}</div>
+
+          {/* Actions */}
+          <div className="mt-8 flex items-center justify-between border-t border-gray-100 pt-6">
+            {/* Previous */}
             <button
               type="button"
               onClick={handlePrev}
-              className="flex items-center gap-1.5 px-5 py-2.5 border rounded-xl text-sm font-medium hover:bg-gray-50 transition-all"
+              disabled={currentStep === 1 || loading}
+              className="
+                inline-flex items-center
+                gap-2 rounded-lg
+                px-4 py-2.5
+                text-sm font-medium
+                text-gray-600
+                transition
+                hover:bg-gray-100
+                disabled:cursor-not-allowed
+                disabled:text-gray-300
+              "
             >
-              <ArrowRight className="w-4 h-4" /> مرحله قبل
+              <ArrowRight className="h-4 w-4" />
+              مرحله قبل
             </button>
-          ) : (
-            <div />
-          )}
 
-          {currentStep < 5 && (
-            <button
-              type="button"
-              onClick={handleNext}
-              className="flex items-center gap-1.5 px-6 py-2.5 bg-indigo-600 text-white rounded-xl text-sm font-medium hover:bg-indigo-700 transition-all shadow-sm"
-            >
-              مرحله بعد <ArrowLeft className="w-4 h-4" />
-            </button>
-          )}
-          {currentStep === 5 && (
-            <button
-              type="submit"
-              className="flex items-center gap-1.5 px-6 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-medium hover:bg-emerald-700 transition-all shadow-sm"
-            >
-              ثبت نهایی کسب‌وکار <CheckCircle2 className="w-4 h-4" />
-            </button>
-          )}
+            {/* Next */}
+            {currentStep < STEPS.length ? (
+              <button
+                type="button"
+                onClick={handleNext}
+                disabled={loading}
+                className="
+                  inline-flex items-center
+                  gap-2 rounded-lg
+                  bg-brand-600
+                  px-5 py-2.5
+                  text-sm font-medium
+                  text-white
+                  transition
+                  hover:bg-brand-700
+                  disabled:cursor-not-allowed
+                  disabled:opacity-50
+                "
+              >
+                مرحله بعد
+                <ArrowLeft className="h-4 w-4" />
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={handleSubmit}
+                disabled={loading}
+                className="
+                  inline-flex items-center
+                  gap-2 rounded-lg
+                  bg-brand-600
+                  px-5 py-2.5
+                  text-sm font-medium
+                  text-white
+                  transition
+                  hover:bg-brand-700
+                  disabled:cursor-not-allowed
+                  disabled:opacity-50
+                "
+              >
+                {loading ? "در حال ثبت..." : "ثبت کسب‌وکار"}
+
+                {!loading && <CheckCircle2 className="h-4 w-4" />}
+              </button>
+            )}
+          </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

@@ -3,68 +3,14 @@ import Comment from "../models/Comment.js";
 import User from "../models/User.js";
 export const addBusiness = async (req, res) => {
   try {
+    console.log(req.body);
+
     const {
       title,
       description,
       mobile,
       phone,
-      instagram,
-      website,
-      province,
-      city,
-      neighborhood,
-      address,
-      latitude,
-      longitude,
-      is24Hours,
-      openTime,
-      closeTime,
-      ownerId,
-      uniqName,
-    } = req.body;
-
-    const category = Array.isArray(req.body.category)
-      ? req.body.category
-      : req.body.category
-        ? [req.body.category]
-        : [];
-
-    const amenities = Array.isArray(req.body.amenities)
-      ? req.body.amenities
-      : req.body.amenities
-        ? [req.body.amenities]
-        : [];
-
-    const workingDays = Array.isArray(req.body.workingDays)
-      ? req.body.workingDays
-      : req.body.workingDays
-        ? [req.body.workingDays]
-        : [];
-
-    // Logo
-    if (!req.files?.logo?.[0]) {
-      return res.status(400).json({
-        message: "Logo is required",
-      });
-    }
-
-    const logo = `/uploads/businesses/${req.files.logo[0].filename}`;
-
-    // Gallery
-    const gallery =
-      req.files?.gallery?.map(
-        (file) => `/uploads/businesses/${file.filename}`,
-      ) || [];
-    console.log(category);
-
-    const business = await Business.create({
-      title,
-      category,
-      description,
-      mobile,
-      phone,
-      instagram,
-      website,
+      socialLinks,
       province,
       city,
       neighborhood,
@@ -73,11 +19,68 @@ export const addBusiness = async (req, res) => {
       longitude,
       amenities,
       is24Hours,
-      openTime,
-      closeTime,
-      workingDays,
+      workingHours,
+      ownerId,
+      uniqName,
+      category,
+    } = req.body;
+
+    const parsedCategory = category ? JSON.parse(category) : [];
+
+    const parsedAmenities = amenities ? JSON.parse(amenities) : [];
+
+    const parsedSocialLinks = socialLinks ? JSON.parse(socialLinks) : [];
+
+    const parsedWorkingHours = workingHours ? JSON.parse(workingHours) : {};
+    const logoFile = req.files?.logo?.[0];
+
+    // -------------------------
+    // Logo
+    // -------------------------
+    let logo;
+    if (logoFile) {
+      logo = `/uploads/businesses/${req.files.logo[0].filename}`;
+    }
+
+    // -------------------------
+    // Gallery
+    // -------------------------
+
+    const gallery =
+      req.files?.gallery?.map(
+        (file) => `/uploads/businesses/${file.filename}`,
+      ) || [];
+
+    // -------------------------
+    // Create business
+    // -------------------------
+
+    const business = await Business.create({
+      title,
+      description,
+
+      mobile,
+      phone,
+      socialLinks: parsedSocialLinks,
+
+      province,
+      city,
+      neighborhood,
+      address,
+
+      latitude: Number(latitude),
+      longitude: Number(longitude),
+
+      category: parsedCategory,
+      amenities: parsedAmenities,
+
+      is24Hours: is24Hours === "true",
+
+      workingHours: parsedWorkingHours,
+
       logo,
       gallery,
+
       uniqName,
       ownerId,
     });
@@ -87,7 +90,7 @@ export const addBusiness = async (req, res) => {
       business,
     });
   } catch (error) {
-    console.error(error);
+    // console.error("Add business error:", error);
 
     return res.status(500).json({
       message: error.message,

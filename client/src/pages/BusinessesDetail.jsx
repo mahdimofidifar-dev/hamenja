@@ -17,7 +17,6 @@ import { toPersianDigits, openInfo } from "@/utils/businessTime";
 const BusinessDetail = () => {
   const { uniqName } = useParams();
   const [business, setBusiness] = useState([]);
-  console.log(business);
 
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -42,22 +41,24 @@ const BusinessDetail = () => {
     );
   }
   const isOpen = openInfo(business);
+  const uploadUrl = import.meta.env.VITE_UPLOAD_URL;
+  console.log(uploadUrl + business.logo);
 
   return (
-    <div className="bg-bg-light ">
+    <div className="">
       <Header />
       <BreadCrump />
       <div className="profile px-4">
         <div className="head flex w-full py-3 gap-3">
           <div className="job-logo">
             <img
-              src={`${import.meta.env.VITE_API_URL}${business.logo}`}
+              src={`${uploadUrl}${business.logo}`}
               className="rounded-full size-18"
             />
           </div>
           <div className="detail flex flex-col justify-around">
             <div className="job-title font-bold text-xl">{business.title}</div>
-            <div className="job-description text-md">
+            <div className="job-description text-md line-clamp-2">
               {business.description}
             </div>
           </div>
@@ -108,12 +109,13 @@ const BusinessDetail = () => {
       <CallInfo mobile={business.mobile} phone={business.phone} />
       <DividerTitle title="ساعات کاری" />
       <DividerTitle title="توضیحات" />
-      <ReadMore text={business.description} limitLines={5} />
+      <ReadMore text={business.description} />
       <DividerTitle title="نظرات" />
       <ReviewsSection businessId={business._id} comments={business.comments} />
       <Footer />
       <StickyNav
         phone={business.phone}
+        mobile={business.mobile}
         latitude={business.latitude}
         longitude={business.longitude}
       />
