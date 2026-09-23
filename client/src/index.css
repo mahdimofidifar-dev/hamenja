@@ -50,6 +50,7 @@ body {
   margin: 0;
   min-width: 320px;
   font-family: "Vazirmatn", sans-serif;
+  /* background: #f4feff; */
 }
 
 @theme {
@@ -171,7 +172,8 @@ body {
 
   /* Deep Cyan */
 
-  --color-brand-50: #ecfeff;
+  /* --color-brand-50: #ecfeff; */
+  --color-brand-50: #f4feff;
   --color-brand-100: #cffafe;
   --color-brand-200: #a5f3fc;
   --color-brand-300: #67e8f9;
