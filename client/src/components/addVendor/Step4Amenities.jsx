@@ -19,32 +19,26 @@ import {
 
 export const AMENITIES_LIST = [
   {
-    id: "parking",
     label: "پارکینگ اختصاصی",
     icon: Car,
   },
   {
-    id: "wifi",
     label: "اینترنت Wi-Fi رایگان",
     icon: Wifi,
   },
   {
-    id: "cafe",
     label: "بوفه / کافه",
     icon: Coffee,
   },
   {
-    id: "pos",
     label: "دستگاه کارتخوان",
     icon: CreditCard,
   },
   {
-    id: "accessible",
     label: "مناسب برای معلولین",
     icon: Accessibility,
   },
   {
-    id: "air_conditioning",
     label: "سیستم تهویه",
     icon: Sparkles,
   },
@@ -265,9 +259,12 @@ export function Step4Amenities({ formData, setFormData }) {
             </p>
 
             <div className="flex flex-wrap gap-2">
+              {console.log(formData.amenities)}
               {formData.amenities.map((amenity) => {
+                // console.log(amenity);
+
                 const predefinedAmenity = AMENITIES_LIST.find(
-                  (item) => item.id === amenity,
+                  (item) => item.label === amenity,
                 );
 
                 const label = predefinedAmenity?.label || amenity;
@@ -300,13 +297,13 @@ export function Step4Amenities({ formData, setFormData }) {
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {AMENITIES_LIST.map((item) => {
             const Icon = item.icon;
-            const isSelected = formData.amenities.includes(item.id);
+            const isSelected = formData.amenities.includes(item.label);
 
             return (
               <button
-                key={item.id}
+                key={item.label}
                 type="button"
-                onClick={() => toggleAmenity(item.id)}
+                onClick={() => toggleAmenity(item.label)}
                 className={`
                   flex items-center justify-between
                   rounded-xl border px-4 py-3

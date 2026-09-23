@@ -42,9 +42,9 @@ const BusinessDetail = () => {
       </div>
     );
   }
-  const isOpen = openInfo(business);
+  // const isOpen = openInfo(business);
   const uploadUrl = import.meta.env.VITE_UPLOAD_URL;
-  console.log(uploadUrl + business.logo);
+  console.log(business);
 
   return (
     <div className="">
@@ -88,7 +88,7 @@ const BusinessDetail = () => {
               </div>
             }
             <div className="flex items-center gap-0.5">
-              {isOpen ? (
+              {/* {isOpen ? (
                 <div className="flex gap-1 items-center">
                   <CircleDot className="size-5 text-green-500 fill-green-200 " />
                   <span>باز است</span>
@@ -98,7 +98,7 @@ const BusinessDetail = () => {
                   <CircleIcon className="size-5 text-red-500 fill-red-200" />
                   <span>بسته تا {toPersianDigits(business.openTime)}</span>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -111,6 +111,7 @@ const BusinessDetail = () => {
       <CallInfo mobile={business.mobile} phone={business.phone} />
       <DividerTitle title="امکانات" />
       <BusinessAmenities amenities={business.amenities} />
+      {console.log(business.workingHours)}
       <DividerTitle title="ساعات کاری" />
       <BusinessHours
         workingHours={business.workingHours}

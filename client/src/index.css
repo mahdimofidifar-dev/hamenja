@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/inter";
 
 @font-face {
   font-family: "Vazirmatn";
@@ -35,29 +34,30 @@
   font-display: swap;
 }
 
-* {
-  /* border: 1px solid gray; */
+/* Base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   scrollbar-width: thin;
+}
 
-  font-family: "Vazirmatn", sans-serif !important;
-}
-body {
-  max-width: 36rem;
-  margin-inline: auto;
-}
 html {
   scroll-behavior: smooth;
-  background: rgb(55, 48, 163), rgb(67, 56, 202);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  font-family: "Vazirmatn", sans-serif;
 }
 
 @theme {
-  --font-sans: "Vazirmatn";
+  --font-sans: "Vazirmatn", sans-serif;
 
-  /* =========================================================
-     1. Primary Brand Colors — Ocean Breeze
-     ========================================================= */
+  /* Primary Brand Colors — Ocean Breeze */
 
-  --color-brand-50: #e8f6ff;
+  /* --color-brand-50: #e8f6ff;
   --color-brand-100: #c8eaff;
   --color-brand-200: #9ed8fb;
   --color-brand-300: #63b9f5;
@@ -66,39 +66,151 @@ html {
   --color-brand-600: #09367f;
   --color-brand-700: #072d6a;
   --color-brand-800: #052452;
-  --color-brand-900: #031a3d;
+  --color-brand-900: #031a3d; */
 
-  /* =========================================================
-     2. Secondary / Accent Colors
-     ========================================================= */
+  /* Primary Brand Colors — Ocean 2 */
 
+  /* --color-brand-50: #eff6ff;
+  --color-brand-100: #dbeafe;
+  --color-brand-200: #bfdbfe;
+  --color-brand-300: #93c5fd;
+  --color-brand-400: #60a5fa;
+  --color-brand-500: #2563eb;
+  --color-brand-600: #1d4ed8;
+  --color-brand-700: #1e40af;
+  --color-brand-800: #1e3a8a;
+  --color-brand-900: #172554; */
+
+  /* --color-brand-50: #eef2ff;
+  --color-brand-100: #e0e7ff;
+  --color-brand-200: #c7d2fe;
+  --color-brand-300: #a5b4fc;
+  --color-brand-400: #818cf8;
+  --color-brand-500: #6366f1;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4338ca;
+  --color-brand-800: #3730a3;
+  --color-brand-900: #312e81; */
+
+  /* --color-brand-50: #ecfdf5;
+  --color-brand-100: #d1fae5;
+  --color-brand-200: #a7f3d0;
+  --color-brand-300: #6ee7b7;
+  --color-brand-400: #34d399;
+  --color-brand-500: #10b981;
+  --color-brand-600: #059669;
+  --color-brand-700: #047857;
+  --color-brand-800: #065f46;
+  --color-brand-900: #064e3b; */
+
+  /* --color-brand-50: #f0fdfa;
+  --color-brand-100: #ccfbf1;
+  --color-brand-200: #99f6e4;
+  --color-brand-300: #5eead4;
+  --color-brand-400: #2dd4bf;
+  --color-brand-500: #0f766e;
+  --color-brand-600: #0d6963;
+  --color-brand-700: #115e59;
+  --color-brand-800: #134e4a;
+  --color-brand-900: #042f2e; */
+
+  /*  */
+  /* Coral */
+
+  /*   
+  --color-brand-50: #fff7f3;
+  --color-brand-100: #ffe8df;
+  --color-brand-200: #ffd0c1;
+  --color-brand-300: #ffb09a;
+  --color-brand-400: #f98f72;
+  --color-brand-500: #e76f51;
+  --color-brand-600: #d95d3f;
+  --color-brand-700: #b94731;
+  --color-brand-800: #943b2b;
+  --color-brand-900: #6f2d22; */
+
+  /* Amber */
+  /*   
+  --color-brand-50: #fffbeb;
+  --color-brand-100: #fef3c7;
+  --color-brand-200: #fde68a;
+  --color-brand-300: #fcd34d;
+  --color-brand-400: #fbbf24;
+  --color-brand-500: #d97706;
+  --color-brand-600: #b45309;
+  --color-brand-700: #92400e;
+  --color-brand-800: #78350f;
+  --color-brand-900: #451a03; */
+
+  /* Plum */
+
+  /*   
+  --color-brand-50: #faf5ff;
+  --color-brand-100: #f3e8ff;
+  --color-brand-200: #e9d5ff;
+  --color-brand-300: #d8b4fe;
+  --color-brand-400: #c084fc;
+  --color-brand-500: #9333ea;
+  --color-brand-600: #7e22ce;
+  --color-brand-700: #6b21a8;
+  --color-brand-800: #581c87;
+  --color-brand-900: #3b0764; */
+
+  /* Raspberry */
+
+  /* --color-brand-50: #fff1f2;
+  --color-brand-100: #ffe4e6;
+  --color-brand-200: #fecdd3;
+  --color-brand-300: #fda4af;
+  --color-brand-400: #fb7185;
+  --color-brand-500: #e11d48;
+  --color-brand-600: #be123c;
+  --color-brand-700: #9f1239;
+  --color-brand-800: #881337;
+  --color-brand-900: #4c0519; */
+
+  /* Deep Cyan */
+
+  --color-brand-50: #ecfeff;
+  --color-brand-100: #cffafe;
+  --color-brand-200: #a5f3fc;
+  --color-brand-300: #67e8f9;
+  --color-brand-400: #22d3ee;
+  --color-brand-500: #0891b2;
+  --color-brand-600: #0e7490;
+  --color-brand-700: #155e75;
+  --color-brand-800: #164e63;
+  --color-brand-900: #083344;
+
+  /* Emerald */
+
+  /* --color-brand-50: #ecfdf5;
+  --color-brand-100: #d1fae5;
+  --color-brand-200: #a7f3d0;
+  --color-brand-300: #6ee7b7;
+  --color-brand-400: #34d399;
+  --color-brand-500: #059669;
+  --color-brand-600: #047857;
+  --color-brand-700: #065f46;
+  --color-brand-800: #064e3b;
+  --color-brand-900: #022c22; */
+
+  /* Secondary / Accent Colors */
   --color-secondary: #3ba7f2;
   --color-accent: #7fe7d6;
 
-  /* =========================================================
-     3. Booking Slot States
-     ========================================================= */
-
+  /* Booking Slot States */
   --color-slot-free: #10b981;
   --color-slot-free-bg: #ecfdf5;
-
   --color-slot-booked: #ef4444;
   --color-slot-booked-bg: #fef2f2;
-
   --color-slot-selected: #0b3d91;
 
-  /* =========================================================
-     4. Neutrals & Layout — Light Mode
-     ========================================================= */
-
+  /* Neutrals & Layout — Light Mode */
   --color-surface-light: #ffffff;
-
   --color-bg-light: #f8fbff;
-
   --color-text-main: #0f172a;
-
   --color-text-muted: #64748b;
-
   --color-border-subtle: #dbe7f0;
 }
 
@@ -107,4 +219,82 @@ html {
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+}
+
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: "Inter Variable", sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
 }

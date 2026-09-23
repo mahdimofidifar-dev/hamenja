@@ -10,11 +10,11 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { toPersianDigits, openInfo } from "@/utils/businessTime";
+// import { toPersianDigits, openInfo } from "@/utils/businessTime";
 
 const CardBox = ({ props }) => {
-  const isOpen = openInfo(props);
-  console.log(isOpen);
+  // const isOpen = openInfo(props);
+  // console.log(isOpen);
 
   return (
     <div className="box flex  flex-col rounded-xl border border-brand-100 gap-2 p-3">
@@ -39,7 +39,7 @@ const CardBox = ({ props }) => {
             </div>
           </div>
         }
-        {isOpen === true ? (
+        {/* {isOpen === true ? (
           <div className="flex gap-1 items-center">
             <CircleDot className="size-5 text-green-500 fill-green-200 " />
             <span>باز است</span>
@@ -49,7 +49,7 @@ const CardBox = ({ props }) => {
             <CircleIcon className="size-5 text-red-500 fill-red-200" />
             <span>بسته تا {toPersianDigits(props.openTime)}</span>
           </div>
-        )}
+        )} */}
       </div>
       <div className="flex items-center gap-2 text-slate-500">
         <MapPin className="size-5" />

@@ -120,11 +120,8 @@ export const getOneBusiness = async (req, res) => {
     .select("userId rate comment")
     .populate("userId", "name lastName , avatar");
 
-  const data = {
-    ...business.toObject(),
-    comments,
-  };
-  res.json(data);
+  business.comments = comments;
+  return res.json(business);
 };
 export const getBusinessOfCategory = async (req, res) => {
   const { key } = req.params;

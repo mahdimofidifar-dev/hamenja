@@ -45,7 +45,7 @@ const BusinessHours = ({ workingHours = {}, is24Hours = false }) => {
             {ranges.length > 0 ? (
               <div className="flex flex-col items-end gap-1">
                 {ranges.map((range, index) => (
-                  <span key={index} dir="ltr" className="text-sm text-gray-600">
+                  <span key={index} dir="rtl" className="text-sm text-gray-600">
                     {toPersianTime(range.open)} تا {toPersianTime(range.close)}
                   </span>
                 ))}
