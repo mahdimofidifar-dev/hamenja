@@ -1,24 +1,21 @@
-FROM node:20-alpine AS deps
+FROM node:20-alpine AS builder
+
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm config set registry https://package-mirror.liara.ir/repository/npm/ 
-RUN npm install
 
-FROM node:20-alpine AS builder
-WORKDIR /app
+RUN npm config set registry https://package-mirror.liara.ir/repository/npm/
+RUN npm ci
 
-COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-FROM node:20-alpine AS runner
-WORKDIR /app
+RUN npm run build
 
-ENV NODE_ENV=development
-ENV PORT=5173
 
-COPY --from=builder /app ./
+FROM nginx:alpine
 
-EXPOSE 5173
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-CMD ["npm", "run", "dev"]
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
