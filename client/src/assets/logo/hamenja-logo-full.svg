@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 250" role="img" aria-label="همینجا">
+
+<defs>
+  <linearGradient id="pinGradient" x1="35" y1="25" x2="165" y2="160" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#1677F2"/>
+    <stop offset="1" stop-color="#0B3D91"/>
+  </linearGradient>
+  <linearGradient id="pathGradient" x1="45" y1="170" x2="145" y2="225" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#7FE7D6"/>
+    <stop offset="1" stop-color="#22C8B8"/>
+  </linearGradient>
+</defs>
+
+
+<g id="hamenja-symbol">
+  <!-- Pin body -->
+  <path d="M100 18
+           C56 18 28 51 28 92
+           C28 145 74 177 100 207
+           C126 177 172 145 172 92
+           C172 51 144 18 100 18 Z"
+        fill="url(#pinGradient)"/>
+  <!-- Inner location hole -->
+  <circle cx="100" cy="91" r="30" fill="white"/>
+  <!-- Route/path -->
+  <path d="M43 171
+           C64 154 89 149 113 155
+           C133 160 148 169 162 181
+           L119 224
+           C103 240 78 239 63 224
+           L37 198
+           C29 190 31 179 43 171 Z"
+        fill="url(#pathGradient)"/>
+</g>
+
+<text x="205" y="140"
+      direction="rtl" unicode-bidi="bidi-override"
+      font-family="Vazirmatn, Tahoma, sans-serif"
+      font-size="104" font-weight="800"
+      fill="#0B3D91">همینجا</text>
+</svg>

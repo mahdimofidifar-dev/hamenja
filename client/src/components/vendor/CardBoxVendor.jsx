@@ -17,7 +17,7 @@ const CardBox = ({ props }) => {
   console.log(isOpen);
 
   return (
-    <div className="box flex flex-col rounded-xl border gap-2 p-3">
+    <div className="box flex  flex-col rounded-xl border border-brand-100 gap-2 p-3">
       <div className="name text-2xl">{props.title}</div>
       <div className="description text-md text-slate-500 line-clamp-2">
         {props.description}

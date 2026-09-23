@@ -13,6 +13,8 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getOneBusiness } from "../apis/business";
 import { toPersianDigits, openInfo } from "@/utils/businessTime";
+import BusinessAmenities from "@/components/vendor/BusinessAmenitie";
+import BusinessHours from "@/components/vendor/BusinessHours";
 
 const BusinessDetail = () => {
   const { uniqName } = useParams();
@@ -104,10 +106,16 @@ const BusinessDetail = () => {
       <Carousel images={business.gallery} />
       <span className="text-xl font-bold px-4">درباره کسب‌و‌کار</span>
       <DividerTitle title="آدرس" />
-      <AddressBox props={business.address} />
+      <AddressBox props={business} />
       <DividerTitle title="اطلاعات تماس" />
       <CallInfo mobile={business.mobile} phone={business.phone} />
+      <DividerTitle title="امکانات" />
+      <BusinessAmenities amenities={business.amenities} />
       <DividerTitle title="ساعات کاری" />
+      <BusinessHours
+        workingHours={business.workingHours}
+        is24Hours={business.is24Hours}
+      />
       <DividerTitle title="توضیحات" />
       <ReadMore text={business.description} />
       <DividerTitle title="نظرات" />

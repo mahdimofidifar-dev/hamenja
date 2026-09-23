@@ -10,6 +10,7 @@ const UserBusinesses = () => {
     return <>...</>;
   } else {
     const businesses = user.business || [];
+    const uploadUrl = import.meta.env.VITE_UPLOAD_URL;
 
     if (!businesses.length) {
       return (
@@ -70,7 +71,7 @@ const UserBusinesses = () => {
           >
             <div className="flex items-center gap-3">
               <img
-                src={item.coverImage || "/placeholder.png"}
+                src={`${uploadUrl}${item.logo}`}
                 alt={item.title}
                 className="w-14 h-14 object-cover rounded-xl bg-gray-100"
               />

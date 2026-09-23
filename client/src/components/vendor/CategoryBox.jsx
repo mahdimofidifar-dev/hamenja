@@ -9,7 +9,7 @@ export default function CategoryBox({ url, icon, title }) {
       <div className="icon-box size-15 rounded-xl flex justify-center items-center bg-brand-200">
         {icon}
       </div>
-      <div className="title">{title}</div>
+      <div className="title  text-sm sm:text-md text-nowrap">{title}</div>
     </Link>
   );
 }

@@ -56,7 +56,7 @@ const Listing = () => {
             </div>
             <FilterBar />
           </div>
-          <div className="list-title p-3 border w-fit rounded-2xl my-2">
+          <div className="list-title p-3 border bg-brand-100 w-fit rounded-2xl my-2">
             {categoryInfo.title}
           </div>
           <div className="lists flex flex-col gap-4">

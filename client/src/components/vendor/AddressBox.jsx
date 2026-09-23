@@ -1,10 +1,10 @@
 import { MapPin, Navigation } from "lucide-react";
-const AddressBox = ({props}) => {
+const AddressBox = ({ props }) => {
   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${props.latitude},${props.longitude}`;
   return (
     <div className="w-full  p-5 shadow-lg flex flex-col gap-8">
       <div className="flex items-center gap-3">
-        <div className="p-2.5 bg-indigo-500/10 text-indigo-400 rounded-xl shrink-0 mt-0.5">
+        <div className="p-2.5 bg-brand-500/10 text-brand-400 rounded-xl shrink-0 mt-0.5">
           <MapPin className="w-5 h-5" />
         </div>
         <div className="flex flex-col gap-1">
@@ -25,7 +25,7 @@ const AddressBox = ({props}) => {
           href={googleMapsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="absolute bottom-3 left-3 bg-indigo-500 hover:bg-indigo-400 text-white text-xs font-semibold px-3 py-2 rounded-lg shadow-md flex items-center gap-1.5 transition-colors pointer-events-auto"
+          className="absolute bottom-3 left-3 bg-brand-500 hover:bg-brand-400 text-white text-xs font-semibold px-3 py-2 rounded-lg shadow-md flex items-center gap-1.5 transition-colors pointer-events-auto"
         >
           <Navigation className="w-3.5 h-3.5" />
           <span>مسیریابی</span>
