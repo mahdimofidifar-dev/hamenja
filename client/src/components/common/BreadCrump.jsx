@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 const BreadCrump = ({ text = "بازگشت" }) => {
   const navigate = useNavigate();
   const backHandler = () => {
-    navigate(-1);
+    navigate('/') 
   };
   return (
     <Link

@@ -44,12 +44,11 @@ const BusinessDetail = () => {
   }
   // const isOpen = openInfo(business);
   const uploadUrl = import.meta.env.VITE_UPLOAD_URL;
-  console.log(business);
 
   return (
     <div className="">
       <Header />
-      <BreadCrump />
+      <BreadCrump category={business.category} />
       <div className="profile px-4">
         <div className="head flex w-full py-3 gap-3">
           <div className="job-logo">
@@ -111,7 +110,6 @@ const BusinessDetail = () => {
       <CallInfo mobile={business.mobile} phone={business.phone} />
       <DividerTitle title="امکانات" />
       <BusinessAmenities amenities={business.amenities} />
-      {console.log(business.workingHours)}
       <DividerTitle title="ساعات کاری" />
       <BusinessHours
         workingHours={business.workingHours}

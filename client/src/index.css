@@ -49,6 +49,7 @@ html {
 body {
   margin: 0;
   max-width: 640px;
+  margin: auto auto;
   font-family: "Vazirmatn", sans-serif;
   /* background: #f4feff; */
 }
